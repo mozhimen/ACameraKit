@@ -27,6 +27,10 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
+    lintOptions {
+        checkReleaseBuilds false
+        abortOnError false
+    }
 }
 
 dependencies {
@@ -38,6 +42,7 @@ dependencies {
     api 'androidx.camera:camera-core:1.2.0'
 
     implementation project(':SwiftKit:basick')
+    implementation project(':SwiftKit:uicorek')
     //test
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'

@@ -1,4 +1,4 @@
-package com.mozhimen.componentk.camerak.camerax.cons
+package com.mozhimen.camerak.camerax.cons
 
 enum class ECameraKXTimer {
     OFF,

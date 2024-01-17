@@ -1,7 +1,7 @@
-package com.mozhimen.componentk.camerak.camerax.helpers
+package com.mozhimen.camerak.camerax.helpers
 
 import androidx.camera.core.AspectRatio
-import com.mozhimen.componentk.camerak.camerax.cons.CAspectRatio
+import com.mozhimen.camerak.camerax.cons.CAspectRatio
 import kotlin.math.abs
 import kotlin.math.max
 import kotlin.math.min

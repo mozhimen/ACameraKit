@@ -1,4 +1,4 @@
-package com.mozhimen.componentk.camerak.camerax.helpers
+package com.mozhimen.camerak.camerax.helpers
 
 import android.annotation.SuppressLint
 import android.graphics.Bitmap
@@ -23,19 +23,19 @@ import com.mozhimen.basick.utilk.android.util.dt
 import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.basick.utilk.android.util.et
 import com.mozhimen.basick.utilk.androidx.lifecycle.runOnMainScope
-import com.mozhimen.componentk.camerak.camerax.CameraKXLayout
+import com.mozhimen.camerak.camerax.CameraKXLayout
 import com.mozhimen.camerak.camerax.annors.ACameraKXCaptureMode
 import com.mozhimen.camerak.camerax.annors.ACameraKXFacing
 import com.mozhimen.camerak.camerax.annors.ACameraKXFormat
 import com.mozhimen.camerak.camerax.annors.ACameraKXRotation
-import com.mozhimen.componentk.camerak.camerax.commons.ICameraKX
-import com.mozhimen.componentk.camerak.camerax.commons.ICameraKXCaptureListener
-import com.mozhimen.componentk.camerak.camerax.commons.ICameraXKFrameListener
-import com.mozhimen.componentk.camerak.camerax.commons.ICameraKXListener
-import com.mozhimen.componentk.camerak.camerax.cons.CAspectRatio
-import com.mozhimen.componentk.camerak.camerax.cons.ECameraKXTimer
-import com.mozhimen.componentk.camerak.camerax.mos.MCameraKXConfig
-import com.mozhimen.componentk.camerak.camerax.temps.OtherCameraFilter
+import com.mozhimen.camerak.camerax.commons.ICameraKX
+import com.mozhimen.camerak.camerax.commons.ICameraKXCaptureListener
+import com.mozhimen.camerak.camerax.commons.ICameraXKFrameListener
+import com.mozhimen.camerak.camerax.commons.ICameraKXListener
+import com.mozhimen.camerak.camerax.cons.CAspectRatio
+import com.mozhimen.camerak.camerax.cons.ECameraKXTimer
+import com.mozhimen.camerak.camerax.mos.MCameraKXConfig
+import com.mozhimen.camerak.camerax.temps.OtherCameraFilter
 import kotlinx.coroutines.delay
 import java.util.concurrent.ExecutionException
 import kotlin.properties.Delegates
@@ -99,11 +99,8 @@ class CameraKXDelegate(private val _cameraKXLayout: CameraKXLayout) : ICameraKX,
         _cameraXKFrameListener?.invoke(imageProxy)
     }
 
-    private val _zoomRatioObserver: Observer<ZoomState> = object : Observer<ZoomState> {
-        override fun onChanged(t: ZoomState?) {
-            t?.let { zoomRatio = it.zoomRatio }
-        }
-    }
+    private val _zoomRatioObserver: Observer<ZoomState?> = Observer { value -> value?.let { zoomRatio = it.zoomRatio } }
+
     //////////////////////////////////////////////////////////////////////////////////////////////
 
     internal var camera: Camera? by Delegates.observable(null) { _, old, new ->

@@ -1,11 +1,11 @@
-package com.mozhimen.componentk.camerak.camerax.commons
+package com.mozhimen.camerak.camerax.commons
 
 import androidx.camera.core.ImageCapture
 import androidx.lifecycle.LifecycleOwner
 import com.mozhimen.camerak.camerax.annors.ACameraKXFacing
 import com.mozhimen.camerak.camerax.annors.ACameraKXRotation
-import com.mozhimen.componentk.camerak.camerax.cons.ECameraKXTimer
-import com.mozhimen.componentk.camerak.camerax.mos.MCameraKXConfig
+import com.mozhimen.camerak.camerax.cons.ECameraKXTimer
+import com.mozhimen.camerak.camerax.mos.MCameraKXConfig
 
 /**
  * @ClassName ICameraXKAction

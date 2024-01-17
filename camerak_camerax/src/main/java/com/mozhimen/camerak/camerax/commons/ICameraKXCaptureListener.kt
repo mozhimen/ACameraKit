@@ -1,4 +1,4 @@
-package com.mozhimen.componentk.camerak.camerax.commons
+package com.mozhimen.camerak.camerax.commons
 
 import android.graphics.Bitmap
 

@@ -1,4 +1,4 @@
-package com.mozhimen.componentk.camerak.camerax.temps
+package com.mozhimen.camerak.camerax.temps
 
 import androidx.camera.core.ImageProxy
 import com.mozhimen.basick.utilk.android.util.vt

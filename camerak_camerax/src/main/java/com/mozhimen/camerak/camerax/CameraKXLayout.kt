@@ -19,14 +19,14 @@ import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.manifestk.cons.CUseFeature
 import com.mozhimen.basick.utilk.android.hardware.UtilKDisplayManager
 import com.mozhimen.camerak.camerax.annors.ACameraKXFacing
-import com.mozhimen.componentk.camerak.camerax.commons.ICameraKX
-import com.mozhimen.componentk.camerak.camerax.commons.ICameraKXCaptureListener
-import com.mozhimen.componentk.camerak.camerax.commons.ICameraKXListener
-import com.mozhimen.componentk.camerak.camerax.commons.ICameraXKFrameListener
-import com.mozhimen.componentk.camerak.camerax.cons.ECameraKXTimer
-import com.mozhimen.componentk.camerak.camerax.helpers.CameraKXDelegate
-import com.mozhimen.componentk.camerak.camerax.helpers.CameraKXUtil
-import com.mozhimen.componentk.camerak.camerax.mos.MCameraKXConfig
+import com.mozhimen.camerak.camerax.commons.ICameraKX
+import com.mozhimen.camerak.camerax.commons.ICameraKXCaptureListener
+import com.mozhimen.camerak.camerax.commons.ICameraKXListener
+import com.mozhimen.camerak.camerax.commons.ICameraXKFrameListener
+import com.mozhimen.camerak.camerax.cons.ECameraKXTimer
+import com.mozhimen.camerak.camerax.helpers.CameraKXDelegate
+import com.mozhimen.camerak.camerax.helpers.CameraKXUtil
+import com.mozhimen.camerak.camerax.mos.MCameraKXConfig
 import com.mozhimen.uicorek.layoutk.bases.BaseLayoutKFrame
 
 /**

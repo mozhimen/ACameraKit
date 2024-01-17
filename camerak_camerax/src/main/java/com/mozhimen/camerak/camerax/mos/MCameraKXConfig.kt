@@ -1,4 +1,4 @@
-package com.mozhimen.componentk.camerak.camerax.mos
+package com.mozhimen.camerak.camerax.mos
 
 import com.mozhimen.camerak.camerax.annors.ACameraKXCaptureMode
 import com.mozhimen.camerak.camerax.annors.ACameraKXFacing

@@ -1,4 +1,4 @@
-package com.mozhimen.componentk.camerak.camerax.helpers
+package com.mozhimen.camerak.camerax.helpers
 
 import android.annotation.SuppressLint
 import android.graphics.*

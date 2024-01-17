@@ -24,3 +24,5 @@ include ':camerak_camerax'
 include ':SwiftKit'
 project(':SwiftKit').projectDir = new File("C:\\Users\\${System.getenv().get("USERNAME")}\\Documents\\GitHub\\SwiftKit")
 include ':SwiftKit:basick'
+include ':SwiftKit:uicorek'
+include ':app'

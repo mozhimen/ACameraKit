@@ -1,4 +1,4 @@
-package com.mozhimen.componentk.camerak.camerax.temps
+package com.mozhimen.camerak.camerax.temps
 
 import android.annotation.SuppressLint
 import androidx.camera.core.CameraInfo
