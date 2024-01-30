@@ -20,9 +20,13 @@ dependencyResolutionManagement {
 
 rootProject.name = "ACameraKit_CameraX"
 include ':camerak_camerax'
+include ':app'
 //SwiftKit
 include ':SwiftKit'
 project(':SwiftKit').projectDir = new File("C:\\Users\\${System.getenv().get("USERNAME")}\\Documents\\GitHub\\SwiftKit")
 include ':SwiftKit:basick'
 include ':SwiftKit:uicorek'
-include ':app'
+//AUICoreKit
+include ':AUICoreKit'
+project(':AUICoreKit').projectDir = new File("D:\\WorkSpace\\GitHub\\AUICoreKit")
+include ':AUICoreKit:layoutk'

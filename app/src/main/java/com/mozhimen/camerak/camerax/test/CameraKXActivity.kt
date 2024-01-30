@@ -26,7 +26,7 @@ import com.mozhimen.uicorek.adaptk.systembar.initAdaptKSystemBar
 @AManifestKRequire(CPermission.CAMERA, CUseFeature.CAMERA, CUseFeature.CAMERA_AUTOFOCUS)
 @APermissionCheck(CPermission.CAMERA)
 @AAdaptKSystemBarProperty(CProperty.IMMERSED_HARD_STICKY)
-class CameraXKActivity : BaseActivityVB<ActivityCameraxkBinding>() {
+class CameraKXActivity : BaseActivityVB<ActivityCameraxkBinding>() {
 
     override fun initFlag() {
         initAdaptKSystemBar()
@@ -54,7 +54,7 @@ class CameraXKActivity : BaseActivityVB<ActivityCameraxkBinding>() {
     private fun initCamera() {
 //        vb.cameraxkPreviewLayout.previewView?.scaleType = PreviewView.ScaleType.FILL_CENTER
         vb.cameraxkPreviewLayout.apply {
-            initCameraKX(this@CameraXKActivity, MCameraKXConfig(_format, ACameraKXFacing.BACK))
+            initCameraKX(this@CameraKXActivity, MCameraKXConfig(_format, ACameraKXFacing.BACK))
             setCameraXFrameListener(_cameraKXFrameListener)
             setCameraXCaptureListener(_cameraKXCaptureListener)
         }

@@ -9,14 +9,24 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ACameraKit_CameraX" >
 
+        <activity
+            android:name=".MainActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
         <!--camerak-->
         <activity
-            android:name=".CameraKActivity"
+            android:name=".CameraKUVCActivity"
             android:exported="false" />
 
         <!--cameraxk-->
         <activity
-            android:name=".CameraXKActivity"
+            android:name=".CameraKXActivity"
             android:exported="false" />
     </application>
 

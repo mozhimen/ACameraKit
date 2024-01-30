@@ -6,7 +6,7 @@ plugins {
 
 android {
     namespace 'com.mozhimen.camerak.camerax.test'
-    compileSdk 34
+    compileSdk 33
 
     defaultConfig {
         applicationId "com.mozhimen.camerak.camerax.test"
@@ -39,6 +39,7 @@ android {
 dependencies {
     implementation project(':SwiftKit:basick')
     implementation project(':SwiftKit:uicorek')
+    implementation project(':AUICoreKit:layoutk')
     implementation project(':camerak_camerax')
     implementation 'com.github.mozhimen.CameraKit_UVC:camerak_uvc:1.0.4'
 

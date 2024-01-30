@@ -21,7 +21,7 @@ import com.mozhimen.camerak.camerax.test.databinding.ActivityCamerakBinding
  * @Version 1.0
  */
 @APermissionCheck(CPermission.CAMERA)
-class CameraKActivity : BaseActivityVB<ActivityCamerakBinding>() {
+class CameraKUVCActivity : BaseActivityVB<ActivityCamerakBinding>() {
     override fun initData(savedInstanceState: Bundle?) {
         ManifestKPermission.requestPermissions(this, onSuccess = {
             super.initData(savedInstanceState)

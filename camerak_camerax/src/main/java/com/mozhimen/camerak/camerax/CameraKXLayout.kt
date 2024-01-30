@@ -13,7 +13,7 @@ import androidx.camera.view.PreviewView
 import androidx.lifecycle.LifecycleOwner
 import com.google.android.material.slider.Slider
 import com.mozhimen.basick.elemk.android.hardware.commons.IDisplayListener
-import com.mozhimen.basick.elemk.android.view.bases.BaseGestureDetector
+import com.mozhimen.basick.elemk.android.view.bases.BaseMultiGestureOnTouchCallback
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.manifestk.cons.CUseFeature
@@ -85,7 +85,7 @@ class CameraKXLayout @JvmOverloads constructor(context: Context, attrs: Attribut
         }
     }
 
-    private val _zoomGestureDetector = object : BaseGestureDetector(context) {
+    private val _zoomGestureDetector = object : BaseMultiGestureOnTouchCallback(context) {
         //        override fun onZoomUp() {
 //            if (_cameraXKDelegate.zoomRatio < _cameraXKDelegate.maxZoomRatio) {
 //                _cameraXKDelegate.cameraControl?.setZoomRatio((_cameraXKDelegate.zoomRatio + 0.1).toFloat())
