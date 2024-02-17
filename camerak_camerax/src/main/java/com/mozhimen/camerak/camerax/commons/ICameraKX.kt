@@ -5,7 +5,7 @@ import androidx.lifecycle.LifecycleOwner
 import com.mozhimen.camerak.camerax.annors.ACameraKXFacing
 import com.mozhimen.camerak.camerax.annors.ACameraKXRotation
 import com.mozhimen.camerak.camerax.cons.ECameraKXTimer
-import com.mozhimen.camerak.camerax.mos.MCameraKXConfig
+import com.mozhimen.camerak.camerax.mos.CameraKXConfig
 
 /**
  * @ClassName ICameraXKAction
@@ -15,7 +15,7 @@ import com.mozhimen.camerak.camerax.mos.MCameraKXConfig
  * @Version 1.0
  */
 interface ICameraKX {
-    fun initCameraKX(owner: LifecycleOwner, config: MCameraKXConfig)
+    fun initCameraKX(owner: LifecycleOwner, config: CameraKXConfig)
     fun initCameraKX(owner: LifecycleOwner)
     fun restartCameraKX()
     fun stopCameraKX()

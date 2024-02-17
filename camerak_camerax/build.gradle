@@ -5,7 +5,7 @@ plugins {
 
 android {
     namespace 'com.mozhimen.camerak.camerax'
-    compileSdk 34
+    compileSdk 33
 
     defaultConfig {
         minSdk 21
@@ -43,8 +43,7 @@ dependencies {
 
     implementation project(':SwiftKit:basick')
     implementation project(':SwiftKit:uicorek')
-    implementation project(':AUICoreKit:layoutk')
-    
+
     //test
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'

@@ -1,4 +1,4 @@
-package com.mozhimen.camerak.camerax.helpers
+package com.mozhimen.camerak.camerax.utils
 
 import android.annotation.SuppressLint
 import android.graphics.*
@@ -7,7 +7,7 @@ import android.util.Log
 import androidx.annotation.IntRange
 import androidx.camera.core.ExperimentalGetImage
 import androidx.camera.core.ImageProxy
-import com.mozhimen.basick.lintk.optin.OptInFieldCall_Close
+import com.mozhimen.basick.lintk.optins.OFieldCall_Close
 import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.basick.utilk.kotlin.bytes2bitmapAny
 import com.mozhimen.basick.utilk.kotlin.bytesNv212bitmapJpeg
@@ -21,16 +21,16 @@ import java.nio.ByteBuffer
  * @Date 2022/2/10 18:46
  * @Version 1.0
  */
-fun ImageProxy.rgba8888ImageProxy2Rgba8888Bitmap(): Bitmap =
-    ImageProxyUtil.rgba8888ImageProxy2Rgba8888Bitmap(this)
+fun ImageProxy.imageProxyRgba88882bitmapRgba8888(): Bitmap =
+    ImageProxyUtil.imageProxyRgba88882bitmapRgba8888(this)
 
 @ExperimentalGetImage
-@OptInFieldCall_Close
-fun ImageProxy.yuv420888ImageProxy2JpegBitmap(): Bitmap =
-    ImageProxyUtil.yuv420888ImageProxy2JpegBitmap(this)
+@OFieldCall_Close
+fun ImageProxy.imageProxyYuv4208882bitmapJpeg(): Bitmap =
+    ImageProxyUtil.imageProxyYuv4208882bitmapJpeg(this)
 
-fun ImageProxy.jpegImageProxy2JpegBitmap(): Bitmap =
-    ImageProxyUtil.jpegImageProxy2JpegBitmap(this)
+fun ImageProxy.imageProxyJpeg2bitmapJpeg(): Bitmap =
+    ImageProxyUtil.imageProxyJpeg2bitmapJpeg(this)
 
 object ImageProxyUtil : BaseUtilK() {
 
@@ -39,11 +39,12 @@ object ImageProxyUtil : BaseUtilK() {
      */
     @SuppressLint("UnsafeOptInUsageError")
     @JvmStatic
-    fun rgba8888ImageProxy2Rgba8888Bitmap(imageProxy: ImageProxy): Bitmap {
+    fun imageProxyRgba88882bitmapRgba8888(imageProxy: ImageProxy): Bitmap {
         Log.v(TAG, "rgba8888Image2Rgba8888Bitmap: imageProxy width ${imageProxy.width} height ${imageProxy.height}")
         val bitmap = Bitmap.createBitmap(imageProxy.width, imageProxy.height, Bitmap.Config.ARGB_8888)
         // Copy out RGB bits to the shared bitmap buffer
-        imageProxy.use { bitmap.copyPixelsFromBuffer(imageProxy.planes[0].buffer) }
+//        imageProxy.use { bitmap.copyPixelsFromBuffer(imageProxy.planes[0].buffer) }
+        bitmap.copyPixelsFromBuffer(imageProxy.planes[0].buffer)
         return bitmap
     }
 
@@ -52,17 +53,17 @@ object ImageProxyUtil : BaseUtilK() {
      */
     @JvmStatic
     @ExperimentalGetImage
-    @OptInFieldCall_Close
-    fun yuv420888ImageProxy2JpegBitmap(imageProxy: ImageProxy): Bitmap {
-        val nv21Bytes = yuv420888Planes2Nv21Bytes(imageProxy.image!!.planes, imageProxy.width, imageProxy.height)
-        return nv21Buffer2JpegBitmap(ByteBuffer.wrap(nv21Bytes), imageProxy.width, imageProxy.height)
+    @OFieldCall_Close
+    fun imageProxyYuv4208882bitmapJpeg(imageProxy: ImageProxy): Bitmap {
+        val nv21Bytes = planesYuv4208882bytesNv21(imageProxy.image!!.planes, imageProxy.width, imageProxy.height)
+        return byteBufferNv212bitmapJpeg(ByteBuffer.wrap(nv21Bytes), imageProxy.width, imageProxy.height)
     }
 
     /**
      * 将来自 CameraX API 的 JPEG 图像转换为Bitmap
      */
     @JvmStatic
-    fun jpegImageProxy2JpegBitmap(imageProxy: ImageProxy): Bitmap {
+    fun imageProxyJpeg2bitmapJpeg(imageProxy: ImageProxy): Bitmap {
         val buffer = imageProxy.planes[0].buffer
         val size = buffer.remaining()
         val jpegBytes = ByteArray(size)
@@ -77,14 +78,14 @@ object ImageProxyUtil : BaseUtilK() {
      */
     @JvmStatic
     @ExperimentalGetImage
-    fun yuv420888ImageProxy2Nv21Bytes(imageProxy: ImageProxy): ByteArray =
-        yuv420888Planes2Nv21Bytes(imageProxy.image!!.planes, imageProxy.width, imageProxy.height)
+    fun imageProxyYuv4208882bytesNv21(imageProxy: ImageProxy): ByteArray =
+        planesYuv4208882bytesNv21(imageProxy.image!!.planes, imageProxy.width, imageProxy.height)
 
     /**
      * 将 NV21 格式字节缓冲区转换为Bitmap
      */
     @JvmStatic
-    fun nv21Buffer2JpegBitmap(nv21Buffer: ByteBuffer, width: Int, height: Int, @IntRange(from = 0, to = 100) quality: Int = 100): Bitmap {
+    fun byteBufferNv212bitmapJpeg(nv21Buffer: ByteBuffer, width: Int, height: Int, @IntRange(from = 0, to = 100) quality: Int = 100): Bitmap {
         nv21Buffer.rewind()
         val nv21Bytes = ByteArray(nv21Buffer.limit())
         nv21Buffer[nv21Bytes, 0, nv21Bytes.size]
@@ -92,10 +93,10 @@ object ImageProxyUtil : BaseUtilK() {
     }
 
     @JvmStatic
-    fun yuv420888Planes2Nv21Bytes(yuv420888Planes: Array<Plane>, width: Int, height: Int): ByteArray {
+    fun planesYuv4208882bytesNv21(yuv420888Planes: Array<Plane>, width: Int, height: Int): ByteArray {
         val imageSize = width * height
         val nv21Bytes = ByteArray(imageSize + 2 * (imageSize / 4))
-        if (isYuv420888PlanesNv21(yuv420888Planes, width, height)) {
+        if (isPlanesYuv420888OfNv21(yuv420888Planes, width, height)) {
             yuv420888Planes[0].buffer[nv21Bytes, 0, imageSize]// 复制 Y 的值
             yuv420888Planes[2].buffer[nv21Bytes, imageSize, 1]// 从 V 缓冲区获取第一个 V 值，因为 U 缓冲区不包含它
             yuv420888Planes[1].buffer[nv21Bytes, imageSize + 1, 2 * imageSize / 4 - 1]// 从 U 缓冲区复制第一个 U 值和剩余的 VU 值
@@ -114,7 +115,7 @@ object ImageProxyUtil : BaseUtilK() {
      * 检查 YUV_420_888 图像的 UV平面缓冲区是否为 NV21 格式
      */
     @JvmStatic
-    fun isYuv420888PlanesNv21(planes: Array<Plane>, width: Int, height: Int): Boolean {
+    fun isPlanesYuv420888OfNv21(planes: Array<Plane>, width: Int, height: Int): Boolean {
         val imageSize = width * height
         val uBuffer = planes[1].buffer
         val vBuffer = planes[2].buffer

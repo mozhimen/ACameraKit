@@ -1,5 +1,6 @@
 package com.mozhimen.camerak.camerax.test
 
+import android.annotation.SuppressLint
 import android.graphics.SurfaceTexture
 import android.os.Bundle
 import android.os.Handler
@@ -12,6 +13,7 @@ import com.mozhimen.basick.manifestk.permission.annors.APermissionCheck
 import com.mozhimen.camerak.*
 import com.mozhimen.camerak_uvc.Direction
 import com.mozhimen.camerak.camerax.test.databinding.ActivityCamerakBinding
+import com.mozhimen.manifestk.xxpermissions.XXPermissionsRequestUtil
 
 /**
  * @ClassName CameraKActivity
@@ -20,12 +22,12 @@ import com.mozhimen.camerak.camerax.test.databinding.ActivityCamerakBinding
  * @Date 2023/2/21 21:54
  * @Version 1.0
  */
-@APermissionCheck(CPermission.CAMERA)
 class CameraKUVCActivity : BaseActivityVB<ActivityCamerakBinding>() {
+    @SuppressLint("MissingPermission")
     override fun initData(savedInstanceState: Bundle?) {
-        ManifestKPermission.requestPermissions(this, onSuccess = {
+        XXPermissionsRequestUtil.requestCameraPermission(this, {
             super.initData(savedInstanceState)
-        })
+        }, {})
     }
 
     override fun initView(savedInstanceState: Bundle?) {

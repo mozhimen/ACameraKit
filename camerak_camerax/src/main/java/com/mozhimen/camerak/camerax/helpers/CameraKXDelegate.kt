@@ -6,6 +6,7 @@ import android.graphics.ImageFormat
 import android.os.Handler
 import android.os.HandlerThread
 import android.util.Log
+import android.util.Size
 import androidx.camera.camera2.internal.Camera2CameraInfoImpl
 import androidx.camera.core.*
 import androidx.camera.extensions.ExtensionMode
@@ -18,7 +19,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import com.google.android.material.slider.Slider
 import com.mozhimen.basick.elemk.java.util.bases.BaseHandlerExecutor
-import com.mozhimen.basick.lintk.optin.OptInFieldCall_Close
+import com.mozhimen.basick.lintk.optins.OFieldCall_Close
+import com.mozhimen.basick.lintk.optins.permission.OPermission_CAMERA
 import com.mozhimen.basick.utilk.android.util.dt
 import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.basick.utilk.android.util.et
@@ -34,8 +36,11 @@ import com.mozhimen.camerak.camerax.commons.ICameraXKFrameListener
 import com.mozhimen.camerak.camerax.commons.ICameraKXListener
 import com.mozhimen.camerak.camerax.cons.CAspectRatio
 import com.mozhimen.camerak.camerax.cons.ECameraKXTimer
-import com.mozhimen.camerak.camerax.mos.MCameraKXConfig
+import com.mozhimen.camerak.camerax.mos.CameraKXConfig
 import com.mozhimen.camerak.camerax.temps.OtherCameraFilter
+import com.mozhimen.camerak.camerax.utils.imageProxyJpeg2bitmapJpeg
+import com.mozhimen.camerak.camerax.utils.imageProxyRgba88882bitmapRgba8888
+import com.mozhimen.camerak.camerax.utils.imageProxyYuv4208882bitmapJpeg
 import kotlinx.coroutines.delay
 import java.util.concurrent.ExecutionException
 import kotlin.properties.Delegates
@@ -47,6 +52,7 @@ import kotlin.properties.Delegates
  * @Date 2022/1/3 1:17
  * @Version 1.0
  */
+@OPermission_CAMERA
 class CameraKXDelegate(private val _cameraKXLayout: CameraKXLayout) : ICameraKX, BaseUtilK() {
 
     private var _cameraXKListener: ICameraKXListener? = null
@@ -73,15 +79,15 @@ class CameraKXDelegate(private val _cameraKXLayout: CameraKXLayout) : ICameraKX,
 
     //////////////////////////////////////////////////////////////////////////////////////////////
 
-    @OptIn(OptInFieldCall_Close::class)
+    @OptIn(OFieldCall_Close::class)
     private val _imageCaptureCallback = object : ImageCapture.OnImageCapturedCallback() {
         @SuppressLint("UnsafeOptInUsageError")
         override fun onCaptureSuccess(image: ImageProxy) {
             "onCaptureSuccess: ${image.format} ${image.width}x${image.height}".dt(TAG)
             when (image.format) {
-                ImageFormat.YUV_420_888 -> _imageCaptureBitmap = image.yuv420888ImageProxy2JpegBitmap().also { "onCaptureSuccess: YUV_420_888".dt(TAG) }
-                ImageFormat.JPEG -> _imageCaptureBitmap = image.jpegImageProxy2JpegBitmap().also { "onCaptureSuccess: JPEG".dt(TAG) }
-                ImageFormat.FLEX_RGBA_8888 -> _imageCaptureBitmap = image.rgba8888ImageProxy2Rgba8888Bitmap().also { "onCaptureSuccess: FLEX_RGBA_8888".dt(TAG) }
+                ImageFormat.YUV_420_888 -> _imageCaptureBitmap = image.imageProxyYuv4208882bitmapJpeg().also { "onCaptureSuccess: YUV_420_888".dt(TAG) }
+                ImageFormat.JPEG -> _imageCaptureBitmap = image.imageProxyJpeg2bitmapJpeg().also { "onCaptureSuccess: JPEG".dt(TAG) }
+                ImageFormat.FLEX_RGBA_8888 -> _imageCaptureBitmap = image.imageProxyRgba88882bitmapRgba8888().also { "onCaptureSuccess: FLEX_RGBA_8888".dt(TAG) }
             }
             _imageCaptureBitmap?.let { _cameraXKCaptureListener?.onCaptureSuccess(it, image.imageInfo.rotationDegrees) }
             image.close()
@@ -157,10 +163,12 @@ class CameraKXDelegate(private val _cameraKXLayout: CameraKXLayout) : ICameraKX,
 
     internal var aspectRatio: Int = CAspectRatio.RATIO_16_9
 
+    internal var resolution: Size = Size(0, 0)
+
     //////////////////////////////////////////////////////////////////////////////////////////////
 
     //region open fun
-    override fun initCameraKX(owner: LifecycleOwner, config: MCameraKXConfig) {
+    override fun initCameraKX(owner: LifecycleOwner, config: CameraKXConfig) {
         _lifecycleOwner = owner
         _imageFormatFrame = when (config.format) {
             ACameraKXFormat.RGBA_8888 -> ImageAnalysis.OUTPUT_IMAGE_FORMAT_RGBA_8888
@@ -168,14 +176,18 @@ class CameraKXDelegate(private val _cameraKXLayout: CameraKXLayout) : ICameraKX,
         }
         _imageCaptureMode = config.captureMode
         lensFacing = config.facing
+        if (config.resolutionWidth > 0 && config.resolutionHeight > 0) {
+            resolution = Size(config.resolutionWidth, config.resolutionHeight)
+        }
     }
 
     override fun initCameraKX(owner: LifecycleOwner) {
-        initCameraKX(owner, MCameraKXConfig())
+        initCameraKX(owner, CameraKXConfig())
     }
 
     @SuppressLint("NewApi")
     override fun restartCameraKX() {
+
         isCameraOpening = true
         try {
             val cameraProviderFuture = ProcessCameraProvider.getInstance(_context)
@@ -183,34 +195,17 @@ class CameraKXDelegate(private val _cameraKXLayout: CameraKXLayout) : ICameraKX,
                 {
                     //////////////////////////////////////////////////////////////////////////////////////////////////////////////
                     //获取相机信息
-                    val cameraProvider: ProcessCameraProvider? = cameraProviderFuture.get()
-
-                    //////////////////////////////////////////////////////////////////////////////////////////////////////////////
-                    //预览
-                    _preview = Preview.Builder()
-                        .setTargetAspectRatio(this.aspectRatio) // set the camera aspect ratio
-                        .setTargetRotation(this.rotation) // set the camera rotation
-                        .build().apply {
-                            setSurfaceProvider(_cameraKXLayout.previewView!!.surfaceProvider)// Attach the viewfinder's surface provider to preview use case
-                        }//摄像头预览的配置 The Configuration of camera preview
-
-                    //////////////////////////////////////////////////////////////////////////////////////////////////////////////
-                    //拍照
-                    _imageCapture = ImageCapture.Builder()//图像捕获的配置 The Configuration of image capture
-                        .setTargetAspectRatio(this.aspectRatio) // set the capture aspect ratio
-                        .setTargetRotation(this.rotation) // set the capture rotation
-                        .setCaptureMode(_imageCaptureMode) // setting to have pictures with highest quality possible (may be slow)
-                        .setFlashMode(this.flashMode) // set capture flash
-                        .build()
-
-                    //////////////////////////////////////////////////////////////////////////////////////////////////////////////
-                    //Hdr
-                    //checkForHdrExtensionAvailability(cameraProvider)
+                    val cameraProvider: ProcessCameraProvider = cameraProviderFuture.get() ?: throw IllegalStateException("Camera initialization failed.")
 
                     //////////////////////////////////////////////////////////////////////////////////////////////////////////////
                     //回调帧 //图像分析的配置 The Configuration of image analyzing
-                    _imageAnalysis = ImageAnalysis.Builder()
-                        .setTargetAspectRatio(this.aspectRatio) // set the analyzer aspect ratio
+                    _imageAnalysis = ImageAnalysis.Builder().apply {
+                        if (resolution.width > 0 && resolution.height > 0) {
+                            setTargetResolution(this@CameraKXDelegate.resolution)
+                        } else {
+                            setTargetAspectRatio(this@CameraKXDelegate.aspectRatio) // set the analyzer aspect ratio
+                        }
+                    }
                         .setTargetRotation(this.rotation) // set the analyzer rotation
                         .setOutputImageRotationEnabled(true)
                         .setBackpressureStrategy(ImageAnalysis.STRATEGY_KEEP_ONLY_LATEST) // in our analysis, we care about the latest image
@@ -219,6 +214,36 @@ class CameraKXDelegate(private val _cameraKXLayout: CameraKXLayout) : ICameraKX,
                         .also {
                             setCameraXKAnalyzer(it)
                         }
+                    if (cameraProvider.isBound(_imageAnalysis!!))
+                        return@addListener
+
+                    //////////////////////////////////////////////////////////////////////////////////////////////////////////////
+                    //预览
+                    Log.d(TAG, "restartCameraKX: ${resolution.width} x ${resolution.height}")
+                    _preview = Preview.Builder().apply {
+                        if (resolution.width > 0 && resolution.height > 0) {
+                            setTargetResolution(this@CameraKXDelegate.resolution)
+                        } else {
+                            setTargetAspectRatio(this@CameraKXDelegate.aspectRatio) // set the camera aspect ratio
+                        }
+                    }
+                        .setTargetRotation(this@CameraKXDelegate.rotation) // set the camera rotation
+                        .build().apply {
+                            setSurfaceProvider(_cameraKXLayout.previewView!!.surfaceProvider)// Attach the viewfinder's surface provider to preview use case
+                        }//摄像头预览的配置 The Configuration of camera preview
+
+                    //////////////////////////////////////////////////////////////////////////////////////////////////////////////
+                    //拍照
+                    _imageCapture = ImageCapture.Builder()//图像捕获的配置 The Configuration of image capture
+                        .setTargetAspectRatio(this@CameraKXDelegate.aspectRatio) // set the capture aspect ratio
+                        .setTargetRotation(this@CameraKXDelegate.rotation) // set the capture rotation
+                        .setCaptureMode(_imageCaptureMode) // setting to have pictures with highest quality possible (may be slow)
+                        .setFlashMode(this.flashMode) // set capture flash
+                        .build()
+
+                    //////////////////////////////////////////////////////////////////////////////////////////////////////////////
+                    //Hdr
+                    //checkForHdrExtensionAvailability(cameraProvider)
 
                     //////////////////////////////////////////////////////////////////////////////////////////////////////////////
                     //绑定生命周期
@@ -342,6 +367,8 @@ class CameraKXDelegate(private val _cameraKXLayout: CameraKXLayout) : ICameraKX,
                     }
                 }
             }
+
+//            Log.d(TAG, "bindToLifecycle: getSupportedResolutions ${CameraKXUtil.getSupportedResolutions(this)}")
         }
     }
 

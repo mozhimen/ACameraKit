@@ -39,8 +39,9 @@ android {
 dependencies {
     implementation project(':SwiftKit:basick')
     implementation project(':SwiftKit:uicorek')
-    implementation project(':AUICoreKit:layoutk')
+    implementation project(':ACrashKit:crashk')
     implementation project(':camerak_camerax')
+    implementation project(':AManifestKit_XXPermissions:manifestk_xxpermissions')
     implementation 'com.github.mozhimen.CameraKit_UVC:camerak_uvc:1.0.4'
 
     testImplementation 'junit:junit:4.13.2'

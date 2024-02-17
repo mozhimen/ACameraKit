@@ -5,12 +5,10 @@ import android.graphics.Bitmap
 import android.os.Bundle
 import androidx.camera.core.ImageProxy
 import com.mozhimen.basick.elemk.androidx.appcompat.bases.databinding.BaseActivityVB
-import com.mozhimen.basick.lintk.optin.OptInFieldCall_Close
-import com.mozhimen.basick.manifestk.cons.CPermission
-import com.mozhimen.basick.manifestk.permission.ManifestKPermission
-import com.mozhimen.basick.manifestk.permission.annors.APermissionCheck
-import com.mozhimen.basick.manifestk.annors.AManifestKRequire
-import com.mozhimen.basick.manifestk.cons.CUseFeature
+import com.mozhimen.basick.lintk.optins.OFieldCall_Close
+import com.mozhimen.basick.lintk.optins.permission.OPermission_CAMERA
+import com.mozhimen.basick.utilk.android.app.UtilKLaunchActivity
+import com.mozhimen.basick.utilk.android.app.UtilKPermission
 import com.mozhimen.camerak.camerax.test.databinding.ActivityCameraxkBinding
 import com.mozhimen.uicorek.adaptk.systembar.annors.AAdaptKSystemBarProperty
 import com.mozhimen.uicorek.adaptk.systembar.cons.CProperty
@@ -18,13 +16,15 @@ import com.mozhimen.camerak.camerax.annors.ACameraKXFacing
 import com.mozhimen.camerak.camerax.annors.ACameraKXFormat
 import com.mozhimen.camerak.camerax.commons.ICameraKXCaptureListener
 import com.mozhimen.camerak.camerax.commons.ICameraXKFrameListener
-import com.mozhimen.camerak.camerax.helpers.rgba8888ImageProxy2Rgba8888Bitmap
-import com.mozhimen.camerak.camerax.helpers.yuv420888ImageProxy2JpegBitmap
-import com.mozhimen.camerak.camerax.mos.MCameraKXConfig
+import com.mozhimen.camerak.camerax.mos.CameraKXConfig
+import com.mozhimen.camerak.camerax.utils.imageProxyRgba88882bitmapRgba8888
+import com.mozhimen.camerak.camerax.utils.imageProxyYuv4208882bitmapJpeg
+import com.mozhimen.manifestk.xxpermissions.XXPermissionsCheckUtil
+import com.mozhimen.manifestk.xxpermissions.XXPermissionsNavHostUtil
+import com.mozhimen.manifestk.xxpermissions.XXPermissionsRequestUtil
 import com.mozhimen.uicorek.adaptk.systembar.initAdaptKSystemBar
 
-@AManifestKRequire(CPermission.CAMERA, CUseFeature.CAMERA, CUseFeature.CAMERA_AUTOFOCUS)
-@APermissionCheck(CPermission.CAMERA)
+@OptIn(OPermission_CAMERA::class)
 @AAdaptKSystemBarProperty(CProperty.IMMERSED_HARD_STICKY)
 class CameraKXActivity : BaseActivityVB<ActivityCameraxkBinding>() {
 
@@ -32,31 +32,26 @@ class CameraKXActivity : BaseActivityVB<ActivityCameraxkBinding>() {
         initAdaptKSystemBar()
     }
 
-    private var _isInitData = false
-    override fun initData(savedInstanceState: Bundle?) {
-        ManifestKPermission.requestPermissions(this, onSuccess = {
-            _isInitData = true
-            super.initData(savedInstanceState)
-        })
-    }
-
     override fun initView(savedInstanceState: Bundle?) {
         initCamera()
     }
 
-    override fun onResume() {
-        super.onResume()
-        if (!_isInitData) initData(null)
-    }
-
     private val _format = ACameraKXFormat.YUV_420_888
 
+    @SuppressLint("MissingPermission")
     private fun initCamera() {
 //        vb.cameraxkPreviewLayout.previewView?.scaleType = PreviewView.ScaleType.FILL_CENTER
         vb.cameraxkPreviewLayout.apply {
-            initCameraKX(this@CameraKXActivity, MCameraKXConfig(_format, ACameraKXFacing.BACK))
+            initCameraKX(this@CameraKXActivity, CameraKXConfig(_format, ACameraKXFacing.BACK))
             setCameraXFrameListener(_cameraKXFrameListener)
             setCameraXCaptureListener(_cameraKXCaptureListener)
+            if (!XXPermissionsCheckUtil.hasCameraPermission(this@CameraKXActivity)) {
+                XXPermissionsRequestUtil.requestCameraPermission(this@CameraKXActivity, onGranted = {
+                    this.restartCameraKX()
+                }, onDenied = {
+                    UtilKLaunchActivity.startSettingAppDetails(this@CameraKXActivity)
+                })
+            }
         }
         vb.cameraxkBtn.setOnClickListener {
             vb.cameraxkPreviewLayout.startCapture()
@@ -65,14 +60,14 @@ class CameraKXActivity : BaseActivityVB<ActivityCameraxkBinding>() {
 
     private var _outputBitmap: Bitmap? = null
 
-    @OptIn(OptInFieldCall_Close::class)
+    @OptIn(OFieldCall_Close::class)
     private val _cameraKXFrameListener: ICameraXKFrameListener by lazy {
         object : ICameraXKFrameListener {
             @SuppressLint("UnsafeOptInUsageError")
             override fun invoke(imageProxy: ImageProxy) {
                 when (_format) {
-                    ACameraKXFormat.RGBA_8888 -> _outputBitmap = imageProxy.rgba8888ImageProxy2Rgba8888Bitmap()
-                    ACameraKXFormat.YUV_420_888 -> _outputBitmap = imageProxy.yuv420888ImageProxy2JpegBitmap()
+                    ACameraKXFormat.RGBA_8888 -> _outputBitmap = imageProxy.imageProxyRgba88882bitmapRgba8888()
+                    ACameraKXFormat.YUV_420_888 -> _outputBitmap = imageProxy.imageProxyYuv4208882bitmapJpeg()
                 }
                 _outputBitmap?.let {
                     runOnUiThread {

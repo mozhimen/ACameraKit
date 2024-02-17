@@ -14,9 +14,10 @@ import androidx.lifecycle.LifecycleOwner
 import com.google.android.material.slider.Slider
 import com.mozhimen.basick.elemk.android.hardware.commons.IDisplayListener
 import com.mozhimen.basick.elemk.android.view.bases.BaseMultiGestureOnTouchCallback
-import com.mozhimen.basick.manifestk.annors.AManifestKRequire
+import com.mozhimen.basick.lintk.optins.permission.OPermission_CAMERA
 import com.mozhimen.basick.manifestk.cons.CPermission
-import com.mozhimen.basick.manifestk.cons.CUseFeature
+import com.mozhimen.basick.manifestk.permission.ManifestKPermission
+import com.mozhimen.basick.utilk.android.app.UtilKPermission
 import com.mozhimen.basick.utilk.android.hardware.UtilKDisplayManager
 import com.mozhimen.camerak.camerax.annors.ACameraKXFacing
 import com.mozhimen.camerak.camerax.commons.ICameraKX
@@ -25,9 +26,9 @@ import com.mozhimen.camerak.camerax.commons.ICameraKXListener
 import com.mozhimen.camerak.camerax.commons.ICameraXKFrameListener
 import com.mozhimen.camerak.camerax.cons.ECameraKXTimer
 import com.mozhimen.camerak.camerax.helpers.CameraKXDelegate
-import com.mozhimen.camerak.camerax.helpers.CameraKXUtil
-import com.mozhimen.camerak.camerax.mos.MCameraKXConfig
-import com.mozhimen.uicorek.layoutk.bases.BaseLayoutKFrame
+import com.mozhimen.camerak.camerax.utils.CameraKXUtil
+import com.mozhimen.camerak.camerax.mos.CameraKXConfig
+import com.mozhimen.uicorek.bases.BaseLayoutKFrame
 
 /**
  * @ClassName CameraXKPreview
@@ -36,7 +37,7 @@ import com.mozhimen.uicorek.layoutk.bases.BaseLayoutKFrame
  * @Date 2022/1/3 0:22
  * @Version 1.0
  */
-@AManifestKRequire(CPermission.CAMERA, CUseFeature.CAMERA, CUseFeature.CAMERA_AUTOFOCUS)
+@OPermission_CAMERA
 class CameraKXLayout @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) :
     BaseLayoutKFrame(context, attrs, defStyleAttr), ICameraKX {
 
@@ -80,7 +81,9 @@ class CameraKXLayout @JvmOverloads constructor(context: Context, attrs: Attribut
             _cameraXKDelegate.aspectRatio = CameraKXUtil.getFitAspectRatio(_previewView!!.width, _previewView!!.height)//输出图像和预览图像的比率 The ratio for the output image and preview
             _cameraXKDelegate.rotation = _previewView!!.display.rotation.also { Log.d(TAG, "onViewAttachedToWindow: rotation $rotation") }
             _displayId = _previewView!!.display.displayId
-            restartCameraKX()
+            if (UtilKPermission.hasPermission(CPermission.CAMERA)) {
+                restartCameraKX()
+            }
             _previewView!!.viewTreeObserver.removeOnGlobalLayoutListener(this)
         }
     }
@@ -137,9 +140,9 @@ class CameraKXLayout @JvmOverloads constructor(context: Context, attrs: Attribut
                 }
             }
         _sliderContainer =
-            view.findViewById<FrameLayout>(R.id.cameraxk_container)
+            view.findViewById(R.id.cameraxk_container)
         _slider =
-            view.findViewById<Slider>(R.id.cameraxk_slider)
+            view.findViewById(R.id.cameraxk_slider)
     }
 
 //    private fun initPreview() {
@@ -153,7 +156,7 @@ class CameraKXLayout @JvmOverloads constructor(context: Context, attrs: Attribut
 //        }
 //    }
 
-    override fun initCameraKX(owner: LifecycleOwner, config: MCameraKXConfig) {
+    override fun initCameraKX(owner: LifecycleOwner, config: CameraKXConfig) {
         _cameraXKDelegate.initCameraKX(owner, config)
     }
 
