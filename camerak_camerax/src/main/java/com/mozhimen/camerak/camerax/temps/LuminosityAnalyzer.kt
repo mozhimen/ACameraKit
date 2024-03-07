@@ -2,7 +2,7 @@ package com.mozhimen.camerak.camerax.temps
 
 import androidx.camera.core.ImageProxy
 import com.mozhimen.basick.utilk.android.util.vt
-import com.mozhimen.basick.utilk.bases.IUtilK
+import com.mozhimen.basick.utilk.commons.IUtilK
 import com.mozhimen.basick.utilk.java.nio.byteBuffer2bytes
 import com.mozhimen.camerak.camerax.commons.ICameraKXAnalyzer
 

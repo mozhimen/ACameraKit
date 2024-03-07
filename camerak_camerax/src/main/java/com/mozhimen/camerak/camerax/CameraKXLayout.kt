@@ -28,7 +28,7 @@ import com.mozhimen.camerak.camerax.cons.ECameraKXTimer
 import com.mozhimen.camerak.camerax.helpers.CameraKXDelegate
 import com.mozhimen.camerak.camerax.utils.CameraKXUtil
 import com.mozhimen.camerak.camerax.mos.CameraKXConfig
-import com.mozhimen.uicorek.bases.BaseLayoutKFrame
+import com.mozhimen.xmlk.bases.BaseLayoutKFrame
 
 /**
  * @ClassName CameraXKPreview

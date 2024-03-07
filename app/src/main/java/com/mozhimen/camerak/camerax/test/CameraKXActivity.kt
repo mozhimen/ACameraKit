@@ -10,8 +10,6 @@ import com.mozhimen.basick.lintk.optins.permission.OPermission_CAMERA
 import com.mozhimen.basick.utilk.android.app.UtilKLaunchActivity
 import com.mozhimen.basick.utilk.android.app.UtilKPermission
 import com.mozhimen.camerak.camerax.test.databinding.ActivityCameraxkBinding
-import com.mozhimen.uicorek.adaptk.systembar.annors.AAdaptKSystemBarProperty
-import com.mozhimen.uicorek.adaptk.systembar.cons.CProperty
 import com.mozhimen.camerak.camerax.annors.ACameraKXFacing
 import com.mozhimen.camerak.camerax.annors.ACameraKXFormat
 import com.mozhimen.camerak.camerax.commons.ICameraKXCaptureListener
@@ -22,15 +20,10 @@ import com.mozhimen.camerak.camerax.utils.imageProxyYuv4208882bitmapJpeg
 import com.mozhimen.manifestk.xxpermissions.XXPermissionsCheckUtil
 import com.mozhimen.manifestk.xxpermissions.XXPermissionsNavHostUtil
 import com.mozhimen.manifestk.xxpermissions.XXPermissionsRequestUtil
-import com.mozhimen.uicorek.adaptk.systembar.initAdaptKSystemBar
 
 @OptIn(OPermission_CAMERA::class)
 @AAdaptKSystemBarProperty(CProperty.IMMERSED_HARD_STICKY)
 class CameraKXActivity : BaseActivityVB<ActivityCameraxkBinding>() {
-
-    override fun initFlag() {
-        initAdaptKSystemBar()
-    }
 
     override fun initView(savedInstanceState: Bundle?) {
         initCamera()
