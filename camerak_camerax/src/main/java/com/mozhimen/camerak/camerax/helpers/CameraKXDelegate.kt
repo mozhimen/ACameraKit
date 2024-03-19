@@ -21,9 +21,9 @@ import com.google.android.material.slider.Slider
 import com.mozhimen.basick.elemk.java.util.bases.BaseHandlerExecutor
 import com.mozhimen.basick.lintk.optins.OFieldCall_Close
 import com.mozhimen.basick.lintk.optins.permission.OPermission_CAMERA
-import com.mozhimen.basick.utilk.android.util.dt
+import com.mozhimen.basick.utilk.android.util.d
 import com.mozhimen.basick.utilk.bases.BaseUtilK
-import com.mozhimen.basick.utilk.android.util.et
+import com.mozhimen.basick.utilk.android.util.e
 import com.mozhimen.basick.utilk.androidx.lifecycle.runOnMainScope
 import com.mozhimen.camerak.camerax.CameraKXLayout
 import com.mozhimen.camerak.camerax.annors.ACameraKXCaptureMode
@@ -83,21 +83,21 @@ class CameraKXDelegate(private val _cameraKXLayout: CameraKXLayout) : ICameraKX,
     private val _imageCaptureCallback = object : ImageCapture.OnImageCapturedCallback() {
         @SuppressLint("UnsafeOptInUsageError")
         override fun onCaptureSuccess(image: ImageProxy) {
-            "onCaptureSuccess: ${image.format} ${image.width}x${image.height}".dt(TAG)
+            "onCaptureSuccess: ${image.format} ${image.width}x${image.height}".d(TAG)
             when (image.format) {
-                ImageFormat.YUV_420_888 -> _imageCaptureBitmap = image.imageProxyYuv4208882bitmapJpeg().also { "onCaptureSuccess: YUV_420_888".dt(TAG) }
-                ImageFormat.JPEG -> _imageCaptureBitmap = image.imageProxyJpeg2bitmapJpeg().also { "onCaptureSuccess: JPEG".dt(TAG) }
-                ImageFormat.FLEX_RGBA_8888 -> _imageCaptureBitmap = image.imageProxyRgba88882bitmapRgba8888().also { "onCaptureSuccess: FLEX_RGBA_8888".dt(TAG) }
+                ImageFormat.YUV_420_888 -> _imageCaptureBitmap = image.imageProxyYuv4208882bitmapJpeg().also { "onCaptureSuccess: YUV_420_888".d(TAG) }
+                ImageFormat.JPEG -> _imageCaptureBitmap = image.imageProxyJpeg2bitmapJpeg().also { "onCaptureSuccess: JPEG".d(TAG) }
+                ImageFormat.FLEX_RGBA_8888 -> _imageCaptureBitmap = image.imageProxyRgba88882bitmapRgba8888().also { "onCaptureSuccess: FLEX_RGBA_8888".d(TAG) }
             }
             _imageCaptureBitmap?.let { _cameraXKCaptureListener?.onCaptureSuccess(it, image.imageInfo.rotationDegrees) }
             image.close()
         }
 
         override fun onError(e: ImageCaptureException) {
-            "OnImageCapturedCallback onError ImageCaptureException ${e.message}".et(TAG)
+            "OnImageCapturedCallback onError ImageCaptureException ${e.message}".e(TAG)
             _cameraXKCaptureListener?.onCaptureFail()
             e.printStackTrace()
-            e.message?.et(TAG)
+            e.message?.e(TAG)
         }
     }
 
@@ -255,12 +255,12 @@ class CameraKXDelegate(private val _cameraKXLayout: CameraKXLayout) : ICameraKX,
             )
             isCameraOpening = false
         } catch (e: InterruptedException) {
-            _cameraXKListener?.onCameraStartFail(e.message ?: "").also { "startCamera InterruptedException ${e.message ?: ""}".et(TAG) }
+            _cameraXKListener?.onCameraStartFail(e.message ?: "").also { "startCamera InterruptedException ${e.message ?: ""}".e(TAG) }
         } catch (e: ExecutionException) {
-            _cameraXKListener?.onCameraStartFail(e.message ?: "").also { "startCamera ExecutionException ${e.message ?: ""}".et(TAG) }
+            _cameraXKListener?.onCameraStartFail(e.message ?: "").also { "startCamera ExecutionException ${e.message ?: ""}".e(TAG) }
         } catch (e: Exception) {
             e.printStackTrace()
-            e.message?.et(TAG)
+            e.message?.e(TAG)
         }
     }
 

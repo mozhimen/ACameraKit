@@ -1,7 +1,7 @@
 package com.mozhimen.camerak.camerax.temps
 
 import androidx.camera.core.ImageProxy
-import com.mozhimen.basick.utilk.android.util.vt
+import com.mozhimen.basick.utilk.android.util.v
 import com.mozhimen.basick.utilk.commons.IUtilK
 import com.mozhimen.basick.utilk.java.nio.byteBuffer2bytes
 import com.mozhimen.camerak.camerax.commons.ICameraKXAnalyzer
@@ -19,7 +19,7 @@ class LuminosityAnalyzer : IUtilK, ICameraKXAnalyzer {
         // Compute average luminance for the image
         val luma = pixels.average()
         // Log the new luma value
-        "Average luminosity luma $luma".vt(TAG)
+        "Average luminosity luma $luma".v(TAG)
         // Update timestamp of last analyzed frame
         imageProxy.close()
     }
