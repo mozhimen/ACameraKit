@@ -1,5 +1,5 @@
-# ACameraKit_CameraX
-Android相机库 -> CameraX
+# ACameraKit
+Android相机库
 
 ## 本地引入
 ```groovy
