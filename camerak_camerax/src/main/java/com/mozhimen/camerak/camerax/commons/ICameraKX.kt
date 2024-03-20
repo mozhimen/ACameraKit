@@ -34,7 +34,8 @@ interface ICameraKX {
     /////////////////////////////////////////////////////////////
 
     fun changeHdr(isOpen: Boolean)
-    fun changeFlash(@ImageCapture.FlashMode flashMode: Int)
+    fun changeFlashMode(@ImageCapture.FlashMode flashMode: Int)
+    fun changeFlash(isOpen: Boolean)
     fun changeCountDownTimer(timer: ECameraKXTimer)
     fun changeRotation(@ACameraKXRotation rotation: Int)
     fun changeFacing(@ACameraKXFacing facing: Int)

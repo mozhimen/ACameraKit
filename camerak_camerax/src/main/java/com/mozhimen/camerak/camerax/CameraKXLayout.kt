@@ -16,9 +16,10 @@ import com.mozhimen.basick.elemk.android.hardware.commons.IDisplayListener
 import com.mozhimen.basick.elemk.android.view.bases.BaseMultiGestureOnTouchCallback
 import com.mozhimen.basick.lintk.optins.permission.OPermission_CAMERA
 import com.mozhimen.basick.manifestk.cons.CPermission
-import com.mozhimen.basick.manifestk.permission.ManifestKPermission
 import com.mozhimen.basick.utilk.android.UtilKPermission
 import com.mozhimen.basick.utilk.android.hardware.UtilKDisplayManager
+import com.mozhimen.basick.utilk.android.util.UtilKLogWrapper
+import com.mozhimen.basick.utilk.kotlin.normalize
 import com.mozhimen.camerak.camerax.annors.ACameraKXFacing
 import com.mozhimen.camerak.camerax.commons.ICameraKX
 import com.mozhimen.camerak.camerax.commons.ICameraKXCaptureListener
@@ -110,8 +111,8 @@ class CameraKXLayout @JvmOverloads constructor(context: Context, attrs: Attribut
 
         override fun onScale(scaleFactor: Float) {
             val zoomRatio = _cameraXKDelegate.zoomRatio
-            if (zoomRatio in _cameraXKDelegate.minZoomRatio.._cameraXKDelegate.maxZoomRatio)
-                _cameraXKDelegate.cameraControl?.setZoomRatio(zoomRatio * scaleFactor)
+//            UtilKLogWrapper.d(TAG, "onScale: scaleFactor $scaleFactor zoomRatio $zoomRatio")
+            _cameraXKDelegate.cameraControl?.setZoomRatio((zoomRatio * scaleFactor).normalize(_cameraXKDelegate.minZoomRatio, _cameraXKDelegate.maxZoomRatio))
         }
 
         override fun onDoubleClick(x: Float, y: Float) {
@@ -196,8 +197,12 @@ class CameraKXLayout @JvmOverloads constructor(context: Context, attrs: Attribut
         _cameraXKDelegate.changeHdr(isOpen)
     }
 
-    override fun changeFlash(flashMode: Int) {
-        _cameraXKDelegate.changeFlash(flashMode)
+    override fun changeFlashMode(flashMode: Int) {
+        _cameraXKDelegate.changeFlashMode(flashMode)
+    }
+
+    override fun changeFlash(isOpen: Boolean) {
+        _cameraXKDelegate.changeFlash(isOpen)
     }
 
     override fun changeCountDownTimer(timer: ECameraKXTimer) {

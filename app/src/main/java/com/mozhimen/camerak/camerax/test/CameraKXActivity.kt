@@ -7,8 +7,7 @@ import androidx.camera.core.ImageProxy
 import com.mozhimen.basick.elemk.androidx.appcompat.bases.databinding.BaseActivityVDB
 import com.mozhimen.basick.lintk.optins.OFieldCall_Close
 import com.mozhimen.basick.lintk.optins.permission.OPermission_CAMERA
-import com.mozhimen.basick.utilk.android.app.UtilKLaunchActivity
-import com.mozhimen.basick.utilk.android.app.UtilKPermission
+import com.mozhimen.basick.utilk.android.app.UtilKActivityStart
 import com.mozhimen.camerak.camerax.test.databinding.ActivityCameraxkBinding
 import com.mozhimen.camerak.camerax.annors.ACameraKXFacing
 import com.mozhimen.camerak.camerax.annors.ACameraKXFormat
@@ -18,12 +17,10 @@ import com.mozhimen.camerak.camerax.mos.CameraKXConfig
 import com.mozhimen.camerak.camerax.utils.imageProxyRgba88882bitmapRgba8888
 import com.mozhimen.camerak.camerax.utils.imageProxyYuv4208882bitmapJpeg
 import com.mozhimen.manifestk.xxpermissions.XXPermissionsCheckUtil
-import com.mozhimen.manifestk.xxpermissions.XXPermissionsNavHostUtil
 import com.mozhimen.manifestk.xxpermissions.XXPermissionsRequestUtil
 
 @OptIn(OPermission_CAMERA::class)
-@AAdaptKSystemBarProperty(CProperty.IMMERSED_HARD_STICKY)
-class CameraKXActivity : BaseActivityVB<ActivityCameraxkBinding>() {
+class CameraKXActivity : BaseActivityVDB<ActivityCameraxkBinding>() {
 
     override fun initView(savedInstanceState: Bundle?) {
         initCamera()
@@ -34,7 +31,7 @@ class CameraKXActivity : BaseActivityVB<ActivityCameraxkBinding>() {
     @SuppressLint("MissingPermission")
     private fun initCamera() {
 //        vb.cameraxkPreviewLayout.previewView?.scaleType = PreviewView.ScaleType.FILL_CENTER
-        vb.cameraxkPreviewLayout.apply {
+        vdb.cameraxkPreviewLayout.apply {
             initCameraKX(this@CameraKXActivity, CameraKXConfig(_format, ACameraKXFacing.BACK))
             setCameraXFrameListener(_cameraKXFrameListener)
             setCameraXCaptureListener(_cameraKXCaptureListener)
@@ -42,12 +39,12 @@ class CameraKXActivity : BaseActivityVB<ActivityCameraxkBinding>() {
                 XXPermissionsRequestUtil.requestCameraPermission(this@CameraKXActivity, onGranted = {
                     this.restartCameraKX()
                 }, onDenied = {
-                    UtilKLaunchActivity.startSettingAppDetails(this@CameraKXActivity)
+                    UtilKActivityStart.startApplicationDetailsSettings(this@CameraKXActivity)
                 })
             }
         }
-        vb.cameraxkBtn.setOnClickListener {
-            vb.cameraxkPreviewLayout.startCapture()
+        vdb.cameraxkBtn.setOnClickListener {
+            vdb.cameraxkPreviewLayout.startCapture()
         }
     }
 
@@ -64,7 +61,7 @@ class CameraKXActivity : BaseActivityVB<ActivityCameraxkBinding>() {
                 }
                 _outputBitmap?.let {
                     runOnUiThread {
-                        vb.cameraxkImg1.setImageBitmap(_outputBitmap)
+                        vdb.cameraxkImg1.setImageBitmap(_outputBitmap)
                     }
                 }
                 imageProxy.close()
@@ -75,7 +72,7 @@ class CameraKXActivity : BaseActivityVB<ActivityCameraxkBinding>() {
     private val _cameraKXCaptureListener = object : ICameraKXCaptureListener {
         override fun onCaptureSuccess(bitmap: Bitmap, imageRotation: Int) {
             runOnUiThread {
-                vb.cameraxkImg.setImageBitmap(bitmap)
+                vdb.cameraxkImg.setImageBitmap(bitmap)
             }
         }
     }

@@ -7,6 +7,7 @@ import android.os.Handler
 import android.os.Looper
 import android.view.TextureView
 import com.mozhimen.basick.elemk.androidx.appcompat.bases.databinding.BaseActivityVDB
+import com.mozhimen.basick.lintk.optins.permission.OPermission_CAMERA
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.manifestk.permission.ManifestKPermission
 import com.mozhimen.basick.manifestk.permission.annors.APermissionCheck
@@ -22,7 +23,8 @@ import com.mozhimen.manifestk.xxpermissions.XXPermissionsRequestUtil
  * @Date 2023/2/21 21:54
  * @Version 1.0
  */
-class CameraKUVCActivity : BaseActivityVB<ActivityCamerakBinding>() {
+class CameraKUVCActivity : BaseActivityVDB<ActivityCamerakBinding>() {
+    @OptIn(OPermission_CAMERA::class)
     @SuppressLint("MissingPermission")
     override fun initData(savedInstanceState: Bundle?) {
         XXPermissionsRequestUtil.requestCameraPermission(this, {
@@ -40,7 +42,7 @@ class CameraKUVCActivity : BaseActivityVB<ActivityCamerakBinding>() {
     @Transient
     private var _bytesRgb: ByteArray? = null
     private fun initCamera() {
-        vb.camerakScale.surfaceTextureListener = object : TextureView.SurfaceTextureListener {
+        vdb.camerakScale.surfaceTextureListener = object : TextureView.SurfaceTextureListener {
             override fun onSurfaceTextureAvailable(surface: SurfaceTexture, p1: Int, p2: Int) {
                 _surfaceRbg = surface
                 openRgbCamera()
@@ -60,7 +62,7 @@ class CameraKUVCActivity : BaseActivityVB<ActivityCamerakBinding>() {
             override fun onSurfaceTextureUpdated(surface: SurfaceTexture) {
             }
         }
-        vb.camerakScale.apply {
+        vdb.camerakScale.apply {
             setDisplayDir(getDegree(90))
             resetPreviewSize(1280, 800)
             setMirror(false)
