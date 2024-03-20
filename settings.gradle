@@ -18,7 +18,7 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "ACameraKit_CameraX"
+rootProject.name = "ACameraKit"
 include ':camerak_camerax'
 include ':app'
 //SwiftKit

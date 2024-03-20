@@ -12,7 +12,7 @@ import com.mozhimen.camerak.camerax.test.databinding.ActivityMainBinding
  * @Date 2024/1/30 23:08
  * @Version 1.0
  */
-class MainActivity : BaseActivityVB<ActivityMainBinding>() {
+class MainActivity : BaseActivityVDB<ActivityMainBinding>() {
     fun goCameraKUVC(view: View) {
         startContext<CameraKUVCActivity>()
     }

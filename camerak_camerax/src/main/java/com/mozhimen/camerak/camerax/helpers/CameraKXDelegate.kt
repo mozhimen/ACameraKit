@@ -18,9 +18,11 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import com.google.android.material.slider.Slider
+import com.mozhimen.basick.elemk.android.graphics.cons.CImageFormat
 import com.mozhimen.basick.elemk.java.util.bases.BaseHandlerExecutor
 import com.mozhimen.basick.lintk.optins.OFieldCall_Close
 import com.mozhimen.basick.lintk.optins.permission.OPermission_CAMERA
+import com.mozhimen.basick.utilk.android.content.UtilKContentResolver
 import com.mozhimen.basick.utilk.android.util.d
 import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.basick.utilk.android.util.e
@@ -80,24 +82,26 @@ class CameraKXDelegate(private val _cameraKXLayout: CameraKXLayout) : ICameraKX,
     //////////////////////////////////////////////////////////////////////////////////////////////
 
     @OptIn(OFieldCall_Close::class)
-    private val _imageCaptureCallback = object : ImageCapture.OnImageCapturedCallback() {
-        @SuppressLint("UnsafeOptInUsageError")
-        override fun onCaptureSuccess(image: ImageProxy) {
-            "onCaptureSuccess: ${image.format} ${image.width}x${image.height}".d(TAG)
-            when (image.format) {
-                ImageFormat.YUV_420_888 -> _imageCaptureBitmap = image.imageProxyYuv4208882bitmapJpeg().also { "onCaptureSuccess: YUV_420_888".d(TAG) }
-                ImageFormat.JPEG -> _imageCaptureBitmap = image.imageProxyJpeg2bitmapJpeg().also { "onCaptureSuccess: JPEG".d(TAG) }
-                ImageFormat.FLEX_RGBA_8888 -> _imageCaptureBitmap = image.imageProxyRgba88882bitmapRgba8888().also { "onCaptureSuccess: FLEX_RGBA_8888".d(TAG) }
+    private val _imageCaptureCallback by lazy {
+        object : ImageCapture.OnImageCapturedCallback() {
+            @SuppressLint("UnsafeOptInUsageError")
+            override fun onCaptureSuccess(image: ImageProxy) {
+                "onCaptureSuccess: ${image.format} ${image.width}x${image.height}".d(TAG)
+                when (image.format) {
+                    CImageFormat.YUV_420_888 -> _imageCaptureBitmap = image.imageProxyYuv4208882bitmapJpeg().also { "onCaptureSuccess: YUV_420_888".d(TAG) }
+                    CImageFormat.JPEG -> _imageCaptureBitmap = image.imageProxyJpeg2bitmapJpeg().also { "onCaptureSuccess: JPEG".d(TAG) }
+                    CImageFormat.FLEX_RGBA_8888 -> _imageCaptureBitmap = image.imageProxyRgba88882bitmapRgba8888().also { "onCaptureSuccess: FLEX_RGBA_8888".d(TAG) }
+                }
+                _imageCaptureBitmap?.let { _cameraXKCaptureListener?.onCaptureSuccess(it, image.imageInfo.rotationDegrees) }
+                image.close()
             }
-            _imageCaptureBitmap?.let { _cameraXKCaptureListener?.onCaptureSuccess(it, image.imageInfo.rotationDegrees) }
-            image.close()
-        }
 
-        override fun onError(e: ImageCaptureException) {
-            "OnImageCapturedCallback onError ImageCaptureException ${e.message}".e(TAG)
-            _cameraXKCaptureListener?.onCaptureFail()
-            e.printStackTrace()
-            e.message?.e(TAG)
+            override fun onError(e: ImageCaptureException) {
+                "OnImageCapturedCallback onError ImageCaptureException ${e.message}".e(TAG)
+                _cameraXKCaptureListener?.onCaptureFail()
+                e.printStackTrace()
+                e.message?.e(TAG)
+            }
         }
     }
 
@@ -105,7 +109,9 @@ class CameraKXDelegate(private val _cameraKXLayout: CameraKXLayout) : ICameraKX,
         _cameraXKFrameListener?.invoke(imageProxy)
     }
 
-    private val _zoomRatioObserver: Observer<ZoomState?> = Observer { value -> value?.let { zoomRatio = it.zoomRatio } }
+    private val _zoomRatioObserver: Observer<ZoomState?> = Observer { value ->
+        value?.let { zoomRatio = it.zoomRatio }
+    }
 
     //////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -281,9 +287,13 @@ class CameraKXDelegate(private val _cameraKXLayout: CameraKXLayout) : ICameraKX,
         this.isOpenHdr = isOpen
     }
 
-    override fun changeFlash(@ImageCapture.FlashMode flashMode: Int) {
+    override fun changeFlashMode(@ImageCapture.FlashMode flashMode: Int) {
         if (this.flashMode == flashMode) return
         this.flashMode = flashMode
+    }
+
+    override fun changeFlash(isOpen: Boolean) {
+        cameraControl?.enableTorch(isOpen)
     }
 
     override fun changeCountDownTimer(timer: ECameraKXTimer) {
@@ -328,18 +338,17 @@ class CameraKXDelegate(private val _cameraKXLayout: CameraKXLayout) : ICameraKX,
     }
     //endregion
 
+    //////////////////////////////////////////////////////////////////////////////////////////////
+
+    //region private fun
     @SuppressLint("RestrictedApi")
     @Throws(Exception::class)
     private fun bindToLifecycle(localCameraProvider: ProcessCameraProvider, preview: Preview, previewView: PreviewView, slider: Slider) {
         if (localCameraProvider.availableCameraInfos.size == 1) {
             Log.d(TAG, "bindToLifecycle: availCamera size = localCameraProvider.availableCameraInfos.size")
             _isCameraSingle = true
-            val cameraInfo: Camera2CameraInfoImpl = (localCameraProvider.availableCameraInfos[0] as Camera2CameraInfoImpl).also {
-                Log.d(
-                    TAG,
-                    "bindToLifecycle: cameraInfo $it _lensFacing ${it.cameraSelector.lensFacing} id ${it.cameraId}"
-                )
-            }
+            val cameraInfo: Camera2CameraInfoImpl = (localCameraProvider.availableCameraInfos[0] as Camera2CameraInfoImpl)
+                .also { Log.d(TAG, "bindToLifecycle: cameraInfo $it _lensFacing ${it.cameraSelector.lensFacing} id ${it.cameraId}") }
             _cameraSelectorFacing.cameraFilterSet.clear()
             _cameraSelectorFacing.cameraFilterSet.add(OtherCameraFilter(cameraInfo.cameraId))
         }
@@ -411,4 +420,5 @@ class CameraKXDelegate(private val _cameraKXLayout: CameraKXLayout) : ICameraKX,
             imageAnalysis.setAnalyzer(BaseHandlerExecutor(Handler(_handlerThreadAnalyzer!!.looper)), _imageAnalysisAnalyzer)
         }
     }
+    //endregion
 }
