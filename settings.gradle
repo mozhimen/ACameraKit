@@ -48,3 +48,4 @@ include ':AXmlKit'
 project(':AXmlKit').projectDir = new File("D:\\WorkSpace\\GitHub\\AXmlKit")
 include ':AXmlKit:recyclerk'
 include ':AXmlKit:vhk'
+include ':camerak_camera_opengl'
