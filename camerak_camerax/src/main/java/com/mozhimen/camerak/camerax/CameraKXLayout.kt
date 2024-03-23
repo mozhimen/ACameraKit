@@ -16,10 +16,9 @@ import com.mozhimen.basick.elemk.android.hardware.commons.IDisplayListener
 import com.mozhimen.basick.elemk.android.view.bases.BaseMultiGestureOnTouchCallback
 import com.mozhimen.basick.lintk.optins.permission.OPermission_CAMERA
 import com.mozhimen.basick.manifestk.cons.CPermission
-import com.mozhimen.basick.utilk.android.UtilKPermission
 import com.mozhimen.basick.utilk.android.hardware.UtilKDisplayManager
-import com.mozhimen.basick.utilk.android.util.UtilKLogWrapper
-import com.mozhimen.basick.utilk.kotlin.normalize
+import com.mozhimen.basick.utilk.kotlin.constraint
+import com.mozhimen.basick.utilk.wrapper.UtilKPermission
 import com.mozhimen.camerak.camerax.annors.ACameraKXFacing
 import com.mozhimen.camerak.camerax.commons.ICameraKX
 import com.mozhimen.camerak.camerax.commons.ICameraKXCaptureListener
@@ -112,7 +111,7 @@ class CameraKXLayout @JvmOverloads constructor(context: Context, attrs: Attribut
         override fun onScale(scaleFactor: Float) {
             val zoomRatio = _cameraXKDelegate.zoomRatio
 //            UtilKLogWrapper.d(TAG, "onScale: scaleFactor $scaleFactor zoomRatio $zoomRatio")
-            _cameraXKDelegate.cameraControl?.setZoomRatio((zoomRatio * scaleFactor).normalize(_cameraXKDelegate.minZoomRatio, _cameraXKDelegate.maxZoomRatio))
+            _cameraXKDelegate.cameraControl?.setZoomRatio((zoomRatio * scaleFactor).constraint(_cameraXKDelegate.minZoomRatio, _cameraXKDelegate.maxZoomRatio))
         }
 
         override fun onDoubleClick(x: Float, y: Float) {
