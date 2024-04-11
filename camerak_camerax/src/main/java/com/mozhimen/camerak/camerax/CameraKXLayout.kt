@@ -17,7 +17,7 @@ import com.mozhimen.basick.elemk.android.view.bases.BaseMultiGestureOnTouchCallb
 import com.mozhimen.basick.lintk.optins.permission.OPermission_CAMERA
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.utilk.android.hardware.UtilKDisplayManager
-import com.mozhimen.basick.utilk.kotlin.constraint
+import com.mozhimen.basick.utilk.kotlin.ranges.constraint
 import com.mozhimen.basick.utilk.wrapper.UtilKPermission
 import com.mozhimen.camerak.camerax.annors.ACameraKXFacing
 import com.mozhimen.camerak.camerax.commons.ICameraKX
