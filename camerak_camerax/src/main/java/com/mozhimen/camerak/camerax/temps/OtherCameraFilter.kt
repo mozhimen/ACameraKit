@@ -12,7 +12,6 @@ import com.mozhimen.camerak.camerax.commons.ICameraKXFilter
  * @ClassName OtherCameraSelectorFilter
  * @Description TODO
  * @Author Mozhimen & Kolin Zhao
- * @Date 2022/12/15 14:50
  * @Version 1.0
  */
 class OtherCameraFilter(private val _id: String) : ICameraKXFilter {

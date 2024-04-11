@@ -11,7 +11,6 @@ import com.mozhimen.crashk.CrashKMgr
  * @ClassName MainApplication
  * @Description TODO
  * @Author Mozhimen / Kolin Zhao
- * @Date 2024/2/16 11:43
  * @Version 1.0
  */
 @OptIn(OApiMultiDex_InApplication::class, OApiInit_InApplication::class)

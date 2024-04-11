@@ -16,7 +16,6 @@ import kotlin.math.min
  * @ClassName CameraKXUtil
  * @Description TODO
  * @Author Mozhimen / Kolin Zhao
- * @Date 2023/9/8 17:29
  * @Version 1.0
  */
 object CameraKXUtil {

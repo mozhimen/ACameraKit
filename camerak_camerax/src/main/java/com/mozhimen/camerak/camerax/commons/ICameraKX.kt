@@ -11,7 +11,6 @@ import com.mozhimen.camerak.camerax.mos.CameraKXConfig
  * @ClassName ICameraXKAction
  * @Description TODO
  * @Author Kolin Zhao / Mozhimen
- * @Date 2022/6/9 14:32
  * @Version 1.0
  */
 interface ICameraKX {

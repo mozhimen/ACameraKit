@@ -10,7 +10,6 @@ import com.mozhimen.camerak.camerax.annors.ACameraKXResolution
  * @ClassName CameraXKConfig
  * @Description TODO
  * @Author Mozhimen & Kolin Zhao
- * @Date 2022/12/15 11:28
  * @Version 1.0
  */
 data class CameraKXConfig(

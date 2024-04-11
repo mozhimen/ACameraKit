@@ -4,7 +4,6 @@ package com.mozhimen.camerak.camerax.commons
  * @ClassName CameraXKListener
  * @Description TODO
  * @Author mozhimen / Kolin Zhao
- * @Date 2022/1/3 1:22
  * @Version 1.0
  */
 interface ICameraKXListener {

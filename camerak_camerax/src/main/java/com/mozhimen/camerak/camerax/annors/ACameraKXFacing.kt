@@ -7,7 +7,6 @@ import androidx.camera.core.CameraSelector
  * @ClassName CameraXKFacing
  * @Description TODO
  * @Author Kolin Zhao / Mozhimen
- * @Date 2022/7/18 17:12
  * @Version 1.0
  */
 @IntDef(value = [ACameraKXFacing.FRONT, ACameraKXFacing.BACK])

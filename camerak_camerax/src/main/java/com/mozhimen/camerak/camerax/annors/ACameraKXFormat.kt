@@ -6,7 +6,6 @@ import androidx.annotation.IntDef
  * @ClassName CameraXKFormat
  * @Description TODO
  * @Author Kolin Zhao / Mozhimen
- * @Date 2022/7/18 17:40
  * @Version 1.0
  */
 @IntDef(value = [ACameraKXFormat.RGBA_8888, ACameraKXFormat.YUV_420_888])

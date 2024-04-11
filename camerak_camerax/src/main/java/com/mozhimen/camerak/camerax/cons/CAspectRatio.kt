@@ -6,7 +6,6 @@ import androidx.camera.core.AspectRatio
  * @ClassName CAspectRatio
  * @Description TODO
  * @Author Mozhimen & Kolin Zhao
- * @Date 2023/6/20 17:16
  * @Version 1.0
  */
 object CAspectRatio {
