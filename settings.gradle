@@ -21,6 +21,8 @@ dependencyResolutionManagement {
 rootProject.name = "ACameraKit"
 include ':camerak_camerax'
 include ':app'
+include ':camerak_opengl'
+include ':camerak_opengl_test'
 //SwiftKit
 include ':SwiftKit'
 project(':SwiftKit').projectDir = new File("D:\\WorkSpace\\GitHub\\SwiftKit")
@@ -48,4 +50,8 @@ include ':AXmlKit'
 project(':AXmlKit').projectDir = new File("D:\\WorkSpace\\GitHub\\AXmlKit")
 include ':AXmlKit:recyclerk'
 include ':AXmlKit:vhk'
-include ':camerak_camera_opengl'
+//AOpenGLKit
+include ':AOpenGLKit'
+project(':AOpenGLKit').projectDir = new File("D:\\WorkSpace\\GitHub\\AOpenGLKit")
+include ':AOpenGLKit:openglk_basic'
+
