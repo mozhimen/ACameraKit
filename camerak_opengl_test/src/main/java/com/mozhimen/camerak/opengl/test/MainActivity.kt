@@ -4,15 +4,53 @@ import android.annotation.SuppressLint
 import android.graphics.SurfaceTexture
 import android.hardware.camera2.CameraCaptureSession
 import android.hardware.camera2.CameraDevice
+import android.opengl.GLSurfaceView
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
+import android.os.Message
+import android.util.Log
 import android.view.Surface
+import androidx.appcompat.app.AppCompatActivity
 import com.mozhimen.basick.elemk.androidx.appcompat.bases.viewbinding.BaseActivityVB
 import com.mozhimen.basick.utilk.android.content.UtilKContext
+import com.mozhimen.basick.utilk.commons.IUtilK
 import com.mozhimen.camerak.opengl.test.databinding.ActivityMainBinding
 
-class MainActivity : BaseActivityVB<ActivityMainBinding>() {
-    override fun initView(savedInstanceState: Bundle?) {
+class MainActivity : AppCompatActivity(), IUtilK {
+    private var _handler: Handler? = null
+    private var _surfaceTexture: SurfaceTexture? = null
 
+    private var _myGLSurfaceView: MyGLSurfaceView? = null
+    private var _myGLRenderer: MyGLRenderer? = null
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        if (_myGLSurfaceView == null) {
+            _myGLSurfaceView = MyGLSurfaceView(this)
+            setContentView(_myGLSurfaceView)
+
+            _myGLRenderer = MyGLRenderer(this)
+            _myGLSurfaceView?.setRenderer(_myGLRenderer)
+            _myGLSurfaceView?.renderMode = GLSurfaceView.RENDERMODE_WHEN_DIRTY
+        }
+
+        if (_handler == null) {
+            _handler = object : Handler(Looper.getMainLooper()) {
+                override fun handleMessage(msg: Message) {
+                    when (msg.what) {
+                        1 -> {
+                            val texture = msg.obj as SurfaceTexture
+                            _surfaceTexture = texture
+                        }
+
+                        else -> {
+                            Log.w(TAG, "handleMessage: ${msg.what}")
+                        }
+                    }
+                }
+            }
+        }
     }
 
     private var _cameraDevice: CameraDevice? = null
@@ -43,6 +81,7 @@ class MainActivity : BaseActivityVB<ActivityMainBinding>() {
         cameraManager.openCamera(cameraId, object : CameraDevice.StateCallback() {
             override fun onOpened(camera: CameraDevice) {
                 _cameraDevice = camera
+                _myGLRenderer?.setHandler(_handler)
             }
 
             override fun onDisconnected(camera: CameraDevice) {
