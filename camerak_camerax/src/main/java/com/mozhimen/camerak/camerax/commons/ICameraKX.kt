@@ -38,4 +38,5 @@ interface ICameraKX {
     fun changeCountDownTimer(timer: ECameraKXTimer)
     fun changeRotation(@ACameraKXRotation rotation: Int)
     fun changeFacing(@ACameraKXFacing facing: Int)
+    fun changeZoomRatio(ratio: Float)
 }

@@ -23,11 +23,15 @@ import com.mozhimen.basick.elemk.java.util.bases.BaseHandlerExecutor
 import com.mozhimen.basick.lintk.optins.OFieldCall_Close
 import com.mozhimen.basick.lintk.optins.permission.OPermission_CAMERA
 import com.mozhimen.basick.utilk.android.content.UtilKContentResolver
+import com.mozhimen.basick.utilk.android.util.UtilKLogWrapper
 import com.mozhimen.basick.utilk.android.util.d
 import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.basick.utilk.android.util.e
 import com.mozhimen.basick.utilk.androidx.lifecycle.runOnMainScope
+import com.mozhimen.basick.utilk.kotlin.ranges.constraint
 import com.mozhimen.camerak.camerax.CameraKXLayout
+import com.mozhimen.camerak.camerax.CameraKXLayout.Companion.DEBUG
+import com.mozhimen.camerak.camerax.annors.AAspectRatio
 import com.mozhimen.camerak.camerax.annors.ACameraKXCaptureMode
 import com.mozhimen.camerak.camerax.annors.ACameraKXFacing
 import com.mozhimen.camerak.camerax.annors.ACameraKXFormat
@@ -167,7 +171,7 @@ class CameraKXDelegate(private val _cameraKXLayout: CameraKXLayout) : ICameraKX,
         _preview?.targetRotation = new
     }
 
-    internal var aspectRatio: Int = CAspectRatio.RATIO_16_9
+    internal var aspectRatio: Int = AAspectRatio.RATIO_DEFAULT
 
     internal var resolution: Size = Size(0, 0)
 
@@ -182,6 +186,7 @@ class CameraKXDelegate(private val _cameraKXLayout: CameraKXLayout) : ICameraKX,
         }
         _imageCaptureMode = config.captureMode
         lensFacing = config.facing
+        aspectRatio = config.aspectRatio
         if (config.resolutionWidth > 0 && config.resolutionHeight > 0) {
             resolution = Size(config.resolutionWidth, config.resolutionHeight)
         }
@@ -310,6 +315,13 @@ class CameraKXDelegate(private val _cameraKXLayout: CameraKXLayout) : ICameraKX,
         if (facing == lensFacing || _isCameraSingle) return
         this.lensFacing = facing
         restartCameraKX()
+    }
+
+    override fun changeZoomRatio(ratio: Float) {
+        cameraControl?.setZoomRatio((/*zoomRatio * scaleFactor*/ratio).constraint(minZoomRatio, maxZoomRatio).also {
+            if (DEBUG)
+                UtilKLogWrapper.d(TAG, "onScale: ratio $it minZoomRatio $minZoomRatio maxZoomRatio $maxZoomRatio")
+        })
     }
 
     override fun startCapture() {

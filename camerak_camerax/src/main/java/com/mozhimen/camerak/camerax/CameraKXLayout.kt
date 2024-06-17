@@ -17,6 +17,7 @@ import com.mozhimen.basick.elemk.android.view.bases.BaseMultiGestureOnTouchCallb
 import com.mozhimen.basick.lintk.optins.permission.OPermission_CAMERA
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.utilk.android.hardware.UtilKDisplayManager
+import com.mozhimen.basick.utilk.android.util.UtilKLogWrapper
 import com.mozhimen.basick.utilk.kotlin.ranges.constraint
 import com.mozhimen.basick.utilk.wrapper.UtilKPermission
 import com.mozhimen.camerak.camerax.annors.ACameraKXFacing
@@ -40,6 +41,10 @@ import com.mozhimen.xmlk.bases.BaseLayoutKFrame
 @OPermission_CAMERA
 class CameraKXLayout @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) :
     BaseLayoutKFrame(context, attrs, defStyleAttr), ICameraKX {
+
+    companion object {
+        const val DEBUG = true
+    }
 
     private val _cameraXKDelegate: CameraKXDelegate by lazy { CameraKXDelegate(this) }
     private var _focusMeteringAction: FocusMeteringAction? = null
@@ -78,7 +83,8 @@ class CameraKXLayout @JvmOverloads constructor(context: Context, attrs: Attribut
     private val _onGlobalLayoutListener = object : OnGlobalLayoutListener {
         override fun onGlobalLayout() {
             Log.d(TAG, "_onLayoutChangeListener: width ${_previewView!!.width} height ${_previewView!!.height}")
-            _cameraXKDelegate.aspectRatio = CameraKXUtil.getFitAspectRatio(_previewView!!.width, _previewView!!.height)//输出图像和预览图像的比率 The ratio for the output image and preview
+            _cameraXKDelegate.aspectRatio =
+                CameraKXUtil.getFitAspectRatio(_cameraXKDelegate.aspectRatio, _previewView!!.width, _previewView!!.height)//输出图像和预览图像的比率 The ratio for the output image and preview
             _cameraXKDelegate.rotation = _previewView!!.display.rotation.also { Log.d(TAG, "onViewAttachedToWindow: rotation $rotation") }
             _displayId = _previewView!!.display.displayId
             if (UtilKPermission.isSelfGranted(CPermission.CAMERA)) {
@@ -109,9 +115,11 @@ class CameraKXLayout @JvmOverloads constructor(context: Context, attrs: Attribut
         }
 
         override fun onScale(scaleFactor: Float) {
-            val zoomRatio = _cameraXKDelegate.zoomRatio
-//            UtilKLogWrapper.d(TAG, "onScale: scaleFactor $scaleFactor zoomRatio $zoomRatio")
-            _cameraXKDelegate.cameraControl?.setZoomRatio((zoomRatio * scaleFactor).constraint(_cameraXKDelegate.minZoomRatio, _cameraXKDelegate.maxZoomRatio))
+            changeZoomRatio(_cameraXKDelegate.zoomRatio * scaleFactor)
+//            _cameraXKDelegate.cameraControl?.setZoomRatio((zoomRatio * scaleFactor).constraint(_cameraXKDelegate.minZoomRatio, _cameraXKDelegate.maxZoomRatio).also {
+//                if (DEBUG)
+//                    UtilKLogWrapper.d(TAG, "onScale: ratio $it minZoomRatio ${_cameraXKDelegate.minZoomRatio} maxZoomRatio ${_cameraXKDelegate.maxZoomRatio}")
+//            })
         }
 
         override fun onDoubleClick(x: Float, y: Float) {
@@ -214,6 +222,10 @@ class CameraKXLayout @JvmOverloads constructor(context: Context, attrs: Attribut
 
     override fun changeFacing(@ACameraKXFacing facing: Int) {
         _cameraXKDelegate.changeFacing(facing)
+    }
+
+    override fun changeZoomRatio(ratio: Float) {
+        _cameraXKDelegate.changeZoomRatio(ratio)
     }
     //endregion
 

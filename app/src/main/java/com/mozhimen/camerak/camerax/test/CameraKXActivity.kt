@@ -39,7 +39,7 @@ class CameraKXActivity : BaseActivityVDB<ActivityCameraxkBinding>() {
                 XXPermissionsRequestUtil.requestCameraPermission(this@CameraKXActivity, onGranted = {
                     this.restartCameraKX()
                 }, onDenied = {
-                    UtilKActivityStart.startApplicationDetailsSettings(this@CameraKXActivity)
+                    UtilKActivityStart.startSettingApplicationDetailsSettings(this@CameraKXActivity)
                 })
             }
         }

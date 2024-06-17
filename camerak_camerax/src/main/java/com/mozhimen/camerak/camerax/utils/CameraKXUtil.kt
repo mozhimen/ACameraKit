@@ -7,6 +7,7 @@ import androidx.camera.camera2.internal.compat.quirk.CamcorderProfileResolutionQ
 import androidx.camera.camera2.interop.Camera2CameraInfo
 import androidx.camera.core.AspectRatio
 import androidx.camera.core.Camera
+import com.mozhimen.camerak.camerax.annors.AAspectRatio
 import com.mozhimen.camerak.camerax.cons.CAspectRatio
 import kotlin.math.abs
 import kotlin.math.max
@@ -23,11 +24,13 @@ object CameraKXUtil {
      *  检测当前尺寸的最合适的长宽比
      */
     @JvmStatic
-    fun getFitAspectRatio(width: Int, height: Int): Int {
-        val previewRatio = max(width, height).toDouble() / min(width, height)
-        if (abs(previewRatio - CAspectRatio.RATIO_VAL_4_3) <= abs(previewRatio - CAspectRatio.RATIO_VAL_16_9))
-            return AspectRatio.RATIO_4_3
-        return AspectRatio.RATIO_16_9
+    fun getFitAspectRatio(@AAspectRatio ratio: Int, width: Int, height: Int): Int {
+        if (ratio == AAspectRatio.RATIO_DEFAULT) {
+            val previewRatio = max(width, height).toDouble() / min(width, height)
+            if (abs(previewRatio - CAspectRatio.RATIO_VAL_4_3) <= abs(previewRatio - CAspectRatio.RATIO_VAL_16_9))
+                return AAspectRatio.RATIO_4_3
+            return AAspectRatio.RATIO_16_9
+        } else return ratio
     }
 
     @androidx.annotation.OptIn(androidx.camera.camera2.interop.ExperimentalCamera2Interop::class)

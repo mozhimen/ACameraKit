@@ -23,6 +23,10 @@ include ':camerak_camerax'
 include ':app'
 include ':camerak_opengl'
 include ':camerak_opengl_test'
+//ALibKit_Squareup
+include ':ALibKit_Squareup'
+project(':ALibKit_Squareup').projectDir = new File("D:\\WorkSpace\\GitHub\\ALibKit_Squareup")
+include ':ALibKit_Squareup:moshi'
 //SwiftKit
 include ':SwiftKit'
 project(':SwiftKit').projectDir = new File("D:\\WorkSpace\\GitHub\\SwiftKit")
@@ -37,10 +41,7 @@ include ':AManifestKit_XXPermissions:library'
 include ':ACrashKit'
 project(':ACrashKit').projectDir = new File("D:\\WorkSpace\\GitHub\\ACrashKit")
 include ':ACrashKit:crashk'
-//ACrashKit_Native
-include ':ACrashKit_Native'
-project(':ACrashKit_Native').projectDir = new File("D:\\WorkSpace\\GitHub\\ACrashKit_Native")
-include ':ACrashKit_Native:crashk_native'
+include ':ACrashKit:crashk_native'
 //ALogKit
 include ':ALogKit'
 project(':ALogKit').projectDir = new File("D:\\WorkSpace\\GitHub\\ALogKit")
@@ -54,4 +55,8 @@ include ':AXmlKit:vhk'
 include ':AOpenGLKit'
 project(':AOpenGLKit').projectDir = new File("D:\\WorkSpace\\GitHub\\AOpenGLKit")
 include ':AOpenGLKit:openglk_basic'
+//ASerialKit
+include ':ASerialKit'
+project(':ASerialKit').projectDir = new File("D:\\WorkSpace\\GitHub\\ASerialKit")
+include ':ASerialKit:serialk_moshi'
 
