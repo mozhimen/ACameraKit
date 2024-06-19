@@ -235,6 +235,7 @@ class CameraKXDelegate(private val _cameraKXLayout: CameraKXLayout) : ICameraKX,
                         if (resolution.width > 0 && resolution.height > 0) {
                             setTargetResolution(this@CameraKXDelegate.resolution)
                         } else {
+                            UtilKLogWrapper.d(TAG, "restartCameraKX: setTargetAspectRatio")
                             setTargetAspectRatio(this@CameraKXDelegate.aspectRatio) // set the camera aspect ratio
                         }
                     }
