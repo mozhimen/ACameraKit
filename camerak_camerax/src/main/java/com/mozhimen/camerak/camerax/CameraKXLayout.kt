@@ -92,6 +92,9 @@ class CameraKXLayout @JvmOverloads constructor(context: Context, attrs: Attribut
             if (UtilKPermission.isSelfGranted(CPermission.CAMERA)) {
                 restartCameraKX()
             }
+            if (_cameraXKDelegate.aspectRatio != AAspectRatio.RATIO_DEFAULT){
+                _previewView!!.scaleType = PreviewView.ScaleType.FIT_CENTER
+            }
             _previewView!!.viewTreeObserver.removeOnGlobalLayoutListener(this)
         }
     }
@@ -148,8 +151,6 @@ class CameraKXLayout @JvmOverloads constructor(context: Context, attrs: Attribut
                 setOnTouchListener { v, event ->
                     _zoomGestureDetector.onTouch(v, event)// 自定义预览界面touch类
                 }
-                if (_cameraXKDelegate.aspectRatio != AAspectRatio.RATIO_DEFAULT)
-                    scaleType = PreviewView.ScaleType.FIT_CENTER
             }
         _sliderContainer =
             view.findViewById(R.id.cameraxk_container)
