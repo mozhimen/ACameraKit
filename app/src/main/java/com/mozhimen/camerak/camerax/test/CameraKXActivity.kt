@@ -33,7 +33,7 @@ class CameraKXActivity : BaseActivityVDB<ActivityCameraxkBinding>() {
     private fun initCamera() {
 //        vb.cameraxkPreviewLayout.previewView?.scaleType = PreviewView.ScaleType.FILL_CENTER
         vdb.cameraxkPreviewLayout.apply {
-            initCameraKX(this@CameraKXActivity, CameraKXConfig(_format, ACameraKXFacing.BACK, aspectRatio = AAspectRatio.RATIO_16_9))
+            initCameraKX(this@CameraKXActivity, CameraKXConfig(_format, ACameraKXFacing.BACK, aspectRatio = AAspectRatio.RATIO_4_3))
             setCameraXFrameListener(_cameraKXFrameListener)
             setCameraXCaptureListener(_cameraKXCaptureListener)
             if (!XXPermissionsCheckUtil.hasCameraPermission(this@CameraKXActivity)) {
