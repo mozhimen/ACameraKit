@@ -8,6 +8,7 @@ import com.mozhimen.basick.elemk.androidx.appcompat.bases.databinding.BaseActivi
 import com.mozhimen.basick.lintk.optins.OFieldCall_Close
 import com.mozhimen.basick.lintk.optins.permission.OPermission_CAMERA
 import com.mozhimen.basick.utilk.android.app.UtilKActivityStart
+import com.mozhimen.basick.utilk.android.view.applyVisible
 import com.mozhimen.camerak.camerax.annors.AAspectRatio
 import com.mozhimen.camerak.camerax.test.databinding.ActivityCameraxkBinding
 import com.mozhimen.camerak.camerax.annors.ACameraKXFacing
@@ -33,7 +34,8 @@ class CameraKXActivity : BaseActivityVDB<ActivityCameraxkBinding>() {
     private fun initCamera() {
 //        vb.cameraxkPreviewLayout.previewView?.scaleType = PreviewView.ScaleType.FILL_CENTER
         vdb.cameraxkPreviewLayout.apply {
-            initCameraKX(this@CameraKXActivity, CameraKXConfig(_format, ACameraKXFacing.BACK, aspectRatio = AAspectRatio.RATIO_4_3))
+            sliderContainer?.applyVisible()
+            initCameraKX(this@CameraKXActivity, CameraKXConfig(_format, ACameraKXFacing.BACK, aspectRatio = AAspectRatio.RATIO_4_3, isAutoFocus = false, focusDistance = 2f))
             setCameraXFrameListener(_cameraKXFrameListener)
             setCameraXCaptureListener(_cameraKXCaptureListener)
             if (!XXPermissionsCheckUtil.hasCameraPermission(this@CameraKXActivity)) {

@@ -1,5 +1,6 @@
 package com.mozhimen.camerak.camerax.mos
 
+import androidx.annotation.FloatRange
 import com.mozhimen.camerak.camerax.annors.AAspectRatio
 import com.mozhimen.camerak.camerax.annors.ACameraKXCaptureMode
 import com.mozhimen.camerak.camerax.annors.ACameraKXFacing
@@ -20,5 +21,7 @@ data class CameraKXConfig(
     @ACameraKXCaptureMode val captureMode: Int = ACameraKXCaptureMode.MAXIMIZE_QUALITY,
     @ACameraKXResolution val resolutionWidth: Int = ACameraKXResolution.DEFAULT,
     @ACameraKXResolution val resolutionHeight: Int = ACameraKXResolution.DEFAULT,
-    @AAspectRatio val aspectRatio: Int = AAspectRatio.RATIO_DEFAULT
+    @AAspectRatio val aspectRatio: Int = AAspectRatio.RATIO_DEFAULT,
+    val isAutoFocus: Boolean = true,
+    @FloatRange(from = 0.0) val focusDistance: Float = 0f
 )

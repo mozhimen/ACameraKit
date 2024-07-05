@@ -35,13 +35,7 @@ android {
 
 dependencies {
     //cameraxk
-    api 'androidx.camera:camera-core:1.2.0'//CameraX核心库, 提供CameraX API
-    api 'androidx.camera:camera-camera2:1.2.0'//实现了CameraX与Camera2 API的适配器
-    api 'androidx.camera:camera-lifecycle:1.2.0'//处理CameraX与Activity/Fragment生命周期的绑定
-    api 'androidx.camera:camera-view:1.2.0'//用于预览照片的视图
-    api 'androidx.camera:camera-video:1.2.0'//提供了录制视频的API
-    api 'androidx.camera:camera-extensions:1.2.0'//扩展,如人脸检测
-
+    api project(':ALibKit_Jetpack:camera')
     implementation project(':SwiftKit:basick')
     implementation project(':SwiftKit:xmlk')
 

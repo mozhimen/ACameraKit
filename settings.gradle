@@ -23,6 +23,10 @@ include ':camerak_camerax'
 include ':app'
 include ':camerak_opengl'
 include ':camerak_opengl_test'
+//ALibKit_Jetpack
+include ':ALibKit_Jetpack'
+project(':ALibKit_Jetpack').projectDir = new File("D:\\WorkSpace\\GitHub\\ALibKit_Jetpack")
+include ':ALibKit_Jetpack:camera'
 //ALibKit_Squareup
 include ':ALibKit_Squareup'
 project(':ALibKit_Squareup').projectDir = new File("D:\\WorkSpace\\GitHub\\ALibKit_Squareup")

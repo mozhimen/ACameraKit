@@ -2,12 +2,15 @@ package com.mozhimen.camerak.camerax.helpers
 
 import android.annotation.SuppressLint
 import android.graphics.Bitmap
-import android.graphics.ImageFormat
+import android.hardware.camera2.CameraMetadata
+import android.hardware.camera2.CaptureRequest
 import android.os.Handler
 import android.os.HandlerThread
 import android.util.Log
 import android.util.Size
 import androidx.camera.camera2.internal.Camera2CameraInfoImpl
+import androidx.camera.camera2.interop.Camera2CameraControl
+import androidx.camera.camera2.interop.CaptureRequestOptions
 import androidx.camera.core.*
 import androidx.camera.extensions.ExtensionMode
 import androidx.camera.extensions.ExtensionsManager
@@ -22,12 +25,11 @@ import com.mozhimen.basick.elemk.android.graphics.cons.CImageFormat
 import com.mozhimen.basick.elemk.java.util.bases.BaseHandlerExecutor
 import com.mozhimen.basick.lintk.optins.OFieldCall_Close
 import com.mozhimen.basick.lintk.optins.permission.OPermission_CAMERA
-import com.mozhimen.basick.utilk.android.content.UtilKContentResolver
 import com.mozhimen.basick.utilk.android.util.UtilKLogWrapper
 import com.mozhimen.basick.utilk.android.util.d
-import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.basick.utilk.android.util.e
 import com.mozhimen.basick.utilk.androidx.lifecycle.runOnMainScope
+import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.basick.utilk.kotlin.ranges.constraint
 import com.mozhimen.camerak.camerax.CameraKXLayout
 import com.mozhimen.camerak.camerax.CameraKXLayout.Companion.DEBUG
@@ -38,9 +40,8 @@ import com.mozhimen.camerak.camerax.annors.ACameraKXFormat
 import com.mozhimen.camerak.camerax.annors.ACameraKXRotation
 import com.mozhimen.camerak.camerax.commons.ICameraKX
 import com.mozhimen.camerak.camerax.commons.ICameraKXCaptureListener
-import com.mozhimen.camerak.camerax.commons.ICameraXKFrameListener
 import com.mozhimen.camerak.camerax.commons.ICameraKXListener
-import com.mozhimen.camerak.camerax.cons.CAspectRatio
+import com.mozhimen.camerak.camerax.commons.ICameraXKFrameListener
 import com.mozhimen.camerak.camerax.cons.ECameraKXTimer
 import com.mozhimen.camerak.camerax.mos.CameraKXConfig
 import com.mozhimen.camerak.camerax.temps.OtherCameraFilter
@@ -50,6 +51,7 @@ import com.mozhimen.camerak.camerax.utils.imageProxyYuv4208882bitmapJpeg
 import kotlinx.coroutines.delay
 import java.util.concurrent.ExecutionException
 import kotlin.properties.Delegates
+
 
 /**
  * @ClassName CameraXKDelegate
@@ -69,6 +71,8 @@ class CameraKXDelegate(private val _cameraKXLayout: CameraKXLayout) : ICameraKX,
     private var _imageCaptureMode = ACameraKXCaptureMode.MAXIMIZE_QUALITY
     private var _isCameraSingle: Boolean = false
     private var _isCameraOpen: Boolean = false
+    private var _isAutoFocus: Boolean = true
+    private var _focusDistance: Float = 0f
 
     //////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -185,6 +189,8 @@ class CameraKXDelegate(private val _cameraKXLayout: CameraKXLayout) : ICameraKX,
             else -> ImageAnalysis.OUTPUT_IMAGE_FORMAT_YUV_420_888
         }
         _imageCaptureMode = config.captureMode
+        _isAutoFocus = config.isAutoFocus
+        _focusDistance = config.focusDistance
         lensFacing = config.facing
         aspectRatio = config.aspectRatio
         if (config.resolutionWidth > 0 && config.resolutionHeight > 0) {
@@ -314,7 +320,7 @@ class CameraKXDelegate(private val _cameraKXLayout: CameraKXLayout) : ICameraKX,
 
     override fun changeFacing(@ACameraKXFacing facing: Int) {
         if (facing == lensFacing || _isCameraSingle) return
-        this.lensFacing = facing
+        lensFacing = facing
         restartCameraKX()
     }
 
@@ -373,6 +379,14 @@ class CameraKXDelegate(private val _cameraKXLayout: CameraKXLayout) : ICameraKX,
             _imageCapture!!, // image capture use case
             _imageAnalysis!!, // image analyzer use case
         ).apply {
+            if (!_isAutoFocus) {
+                if (_focusDistance == 0f) {
+                    disableAutofocus(cameraControl)
+                } else {
+                    changeFocusDistance(cameraControl, _focusDistance)
+                }
+            }
+
             // Init camera exposure control
             cameraInfo.exposureState.run {
                 val lower = exposureCompensationRange.lower
@@ -390,8 +404,32 @@ class CameraKXDelegate(private val _cameraKXLayout: CameraKXLayout) : ICameraKX,
                 }
             }
 
+
 //            Log.d(TAG, "bindToLifecycle: getSupportedResolutions ${CameraKXUtil.getSupportedResolutions(this)}")
         }
+    }
+
+    @androidx.annotation.OptIn(androidx.camera.camera2.interop.ExperimentalCamera2Interop::class)
+    fun disableAutofocus(cameraControl: CameraControl) {
+        val camera2CameraControl: Camera2CameraControl = Camera2CameraControl.from(cameraControl)
+
+        //Then you can set the focus mode you need like this
+        val captureRequestOptions = CaptureRequestOptions.Builder()
+            .setCaptureRequestOption(CaptureRequest.CONTROL_AF_MODE, CameraMetadata.CONTROL_AF_MODE_OFF)
+            .build()
+        camera2CameraControl.captureRequestOptions = captureRequestOptions
+    }
+
+    @androidx.annotation.OptIn(androidx.camera.camera2.interop.ExperimentalCamera2Interop::class)
+    fun changeFocusDistance(cameraControl: CameraControl, distance: Float) {
+        val camera2CameraControl: Camera2CameraControl = Camera2CameraControl.from(cameraControl)
+
+        //Then you can set the focus mode you need like this
+        val captureRequestOptions = CaptureRequestOptions.Builder()
+            .setCaptureRequestOption(CaptureRequest.CONTROL_AF_MODE, CameraMetadata.CONTROL_AF_MODE_OFF)
+            .setCaptureRequestOption(CaptureRequest.LENS_FOCUS_DISTANCE, distance)
+            .build()
+        camera2CameraControl.captureRequestOptions = captureRequestOptions
     }
 
     /**
