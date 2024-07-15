@@ -34,8 +34,9 @@ class CameraKXActivity : BaseActivityVDB<ActivityCameraxkBinding>() {
     private fun initCamera() {
 //        vb.cameraxkPreviewLayout.previewView?.scaleType = PreviewView.ScaleType.FILL_CENTER
         vdb.cameraxkPreviewLayout.apply {
-            sliderContainer?.applyVisible()
-            initCameraKX(this@CameraKXActivity, CameraKXConfig(_format, ACameraKXFacing.BACK, aspectRatio = AAspectRatio.RATIO_4_3, isAutoFocus = false, focusDistance = 2f))
+            slider?.applyVisible()
+            seekBar?.applyVisible()
+            initCameraKX(this@CameraKXActivity, CameraKXConfig(_format, ACameraKXFacing.BACK, aspectRatio = AAspectRatio.RATIO_4_3, isAutoFocus = false))
             setCameraXFrameListener(_cameraKXFrameListener)
             setCameraXCaptureListener(_cameraKXCaptureListener)
             if (!XXPermissionsCheckUtil.hasCameraPermission(this@CameraKXActivity)) {

@@ -4,37 +4,42 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/cok_black">
+    android:background="@color/cok_black"
+    tools:background="@color/cok_white">
 
     <androidx.camera.view.PreviewView
         android:id="@+id/cameraxk_preview"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        tools:background="@color/cok_white" />
 
-    <FrameLayout
-        android:id="@+id/cameraxk_container"
+    <androidx.appcompat.widget.AppCompatSeekBar
+        android:id="@+id/cameraxk_seekbar"
+        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:elevation="3dp"
-        android:orientation="horizontal"
-        android:padding="32dp"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:visibility="visible">
+        android:layout_marginHorizontal="10dp"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/cameraxk_slider"
+        android:paddingHorizontal="20dp"
+        android:paddingVertical="20dp"
+        android:progress="50"
+        android:progressBackgroundTint="@android:color/white"
+        app:haloColor="?colorOnPrimary"
+        app:layout_constraintBottom_toTopOf="@id/cameraxk_slider"
+        app:thumbColor="?colorOnPrimary" />
 
-        <com.google.android.material.slider.Slider
-            android:id="@+id/cameraxk_slider"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:background="@drawable/cameraxk_slider"
-            android:paddingHorizontal="16dp"
-            android:paddingVertical="32dp"
-            android:progressBackgroundTint="@android:color/white"
-            app:haloColor="?colorOnPrimary"
-            app:thumbColor="?colorOnPrimary" />
-    </FrameLayout>
+    <com.google.android.material.slider.Slider
+        android:id="@+id/cameraxk_slider"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="10dp"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/cameraxk_slider"
+        android:paddingHorizontal="20dp"
+        android:paddingVertical="20dp"
+        android:progressBackgroundTint="@android:color/white"
+        app:haloColor="?colorOnPrimary"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:thumbColor="?colorOnPrimary" />
 </androidx.constraintlayout.widget.ConstraintLayout>

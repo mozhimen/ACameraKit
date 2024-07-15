@@ -7,19 +7,17 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewTreeObserver.OnGlobalLayoutListener
-import android.widget.FrameLayout
+import android.widget.SeekBar
 import androidx.camera.core.FocusMeteringAction
-import androidx.camera.core.Preview
 import androidx.camera.view.PreviewView
 import androidx.lifecycle.LifecycleOwner
 import com.google.android.material.slider.Slider
+import androidx.appcompat.widget.AppCompatSeekBar
 import com.mozhimen.basick.elemk.android.hardware.commons.IDisplayListener
 import com.mozhimen.basick.elemk.android.view.bases.BaseMultiGestureOnTouchCallback
 import com.mozhimen.basick.lintk.optins.permission.OPermission_CAMERA
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.utilk.android.hardware.UtilKDisplayManager
-import com.mozhimen.basick.utilk.android.util.UtilKLogWrapper
-import com.mozhimen.basick.utilk.kotlin.ranges.constraint
 import com.mozhimen.basick.utilk.wrapper.UtilKPermission
 import com.mozhimen.camerak.camerax.annors.AAspectRatio
 import com.mozhimen.camerak.camerax.annors.ACameraKXFacing
@@ -54,11 +52,11 @@ class CameraKXLayout @JvmOverloads constructor(context: Context, attrs: Attribut
 
     private var _previewView: PreviewView? = null
     private var _slider: Slider? = null
-    private var _sliderContainer: FrameLayout? = null
+    private var _seekbar: AppCompatSeekBar? = null
 
     val previewView get() = _previewView
     val slider get() = _slider
-    val sliderContainer get() = _sliderContainer
+    val seekBar get() = _seekbar
 
     //////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -92,7 +90,7 @@ class CameraKXLayout @JvmOverloads constructor(context: Context, attrs: Attribut
             if (UtilKPermission.isSelfGranted(CPermission.CAMERA)) {
                 restartCameraKX()
             }
-            if (_cameraXKDelegate.aspectRatio != AAspectRatio.RATIO_DEFAULT){
+            if (_cameraXKDelegate.aspectRatio != AAspectRatio.RATIO_DEFAULT) {
                 _previewView!!.scaleType = PreviewView.ScaleType.FIT_CENTER
             }
             _previewView!!.viewTreeObserver.removeOnGlobalLayoutListener(this)
@@ -152,10 +150,10 @@ class CameraKXLayout @JvmOverloads constructor(context: Context, attrs: Attribut
                     _zoomGestureDetector.onTouch(v, event)// 自定义预览界面touch类
                 }
             }
-        _sliderContainer =
-            view.findViewById(R.id.cameraxk_container)
         _slider =
             view.findViewById(R.id.cameraxk_slider)
+        _seekbar =
+            view.findViewById(R.id.cameraxk_seekbar)
     }
 
 //    private fun initPreview() {

@@ -23,5 +23,4 @@ data class CameraKXConfig(
     @ACameraKXResolution val resolutionHeight: Int = ACameraKXResolution.DEFAULT,
     @AAspectRatio val aspectRatio: Int = AAspectRatio.RATIO_DEFAULT,
     val isAutoFocus: Boolean = true,
-    @FloatRange(from = 0.0) val focusDistance: Float = 0f
 )

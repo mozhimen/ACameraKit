@@ -2,20 +2,18 @@ package com.mozhimen.camerak.camerax.helpers
 
 import android.annotation.SuppressLint
 import android.graphics.Bitmap
-import android.hardware.camera2.CameraMetadata
-import android.hardware.camera2.CaptureRequest
 import android.os.Handler
 import android.os.HandlerThread
 import android.util.Log
 import android.util.Size
+import android.widget.SeekBar
+import android.widget.SeekBar.OnSeekBarChangeListener
+import androidx.appcompat.widget.AppCompatSeekBar
 import androidx.camera.camera2.internal.Camera2CameraInfoImpl
-import androidx.camera.camera2.interop.Camera2CameraControl
-import androidx.camera.camera2.interop.CaptureRequestOptions
 import androidx.camera.core.*
 import androidx.camera.extensions.ExtensionMode
 import androidx.camera.extensions.ExtensionsManager
 import androidx.camera.lifecycle.ProcessCameraProvider
-import androidx.camera.view.PreviewView
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
@@ -45,11 +43,13 @@ import com.mozhimen.camerak.camerax.commons.ICameraXKFrameListener
 import com.mozhimen.camerak.camerax.cons.ECameraKXTimer
 import com.mozhimen.camerak.camerax.mos.CameraKXConfig
 import com.mozhimen.camerak.camerax.temps.OtherCameraFilter
+import com.mozhimen.camerak.camerax.utils.CameraKXUtil
 import com.mozhimen.camerak.camerax.utils.imageProxyJpeg2bitmapJpeg
 import com.mozhimen.camerak.camerax.utils.imageProxyRgba88882bitmapRgba8888
 import com.mozhimen.camerak.camerax.utils.imageProxyYuv4208882bitmapJpeg
 import kotlinx.coroutines.delay
 import java.util.concurrent.ExecutionException
+import kotlin.math.abs
 import kotlin.properties.Delegates
 
 
@@ -72,7 +72,6 @@ class CameraKXDelegate(private val _cameraKXLayout: CameraKXLayout) : ICameraKX,
     private var _isCameraSingle: Boolean = false
     private var _isCameraOpen: Boolean = false
     private var _isAutoFocus: Boolean = true
-    private var _focusDistance: Float = 0f
 
     //////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -137,6 +136,9 @@ class CameraKXDelegate(private val _cameraKXLayout: CameraKXLayout) : ICameraKX,
     internal val cameraControl: CameraControl?
         get() = camera?.cameraControl
 
+    internal val cameraInfo: CameraInfo?
+        get() = camera?.cameraInfo
+
     internal var maxZoomRatio = 0f
     internal var minZoomRatio = 0f
     internal var zoomRatio = 0f
@@ -190,7 +192,6 @@ class CameraKXDelegate(private val _cameraKXLayout: CameraKXLayout) : ICameraKX,
         }
         _imageCaptureMode = config.captureMode
         _isAutoFocus = config.isAutoFocus
-        _focusDistance = config.focusDistance
         lensFacing = config.facing
         aspectRatio = config.aspectRatio
         if (config.resolutionWidth > 0 && config.resolutionHeight > 0) {
@@ -267,7 +268,7 @@ class CameraKXDelegate(private val _cameraKXLayout: CameraKXLayout) : ICameraKX,
                     //绑定生命周期
                     val processCameraProvider: ProcessCameraProvider = cameraProvider ?: throw IllegalStateException("Camera initialization failed.")
                     processCameraProvider.unbindAll()// Unbind the use-cases before rebinding them
-                    bindToLifecycle(processCameraProvider, _preview!!, _cameraKXLayout.previewView!!, _cameraKXLayout.slider!!)// Bind all use cases to the camera with lifecycle
+                    bindToLifecycle(processCameraProvider, _preview!!, _cameraKXLayout.slider!!, _cameraKXLayout.seekBar!!)// Bind all use cases to the camera with lifecycle
                 },
                 ContextCompat.getMainExecutor(_context)
             )
@@ -362,7 +363,7 @@ class CameraKXDelegate(private val _cameraKXLayout: CameraKXLayout) : ICameraKX,
     //region private fun
     @SuppressLint("RestrictedApi")
     @Throws(Exception::class)
-    private fun bindToLifecycle(localCameraProvider: ProcessCameraProvider, preview: Preview, previewView: PreviewView, slider: Slider) {
+    private fun bindToLifecycle(localCameraProvider: ProcessCameraProvider, preview: Preview, slider: Slider, seekBar: AppCompatSeekBar) {
         if (localCameraProvider.availableCameraInfos.size == 1) {
             Log.d(TAG, "bindToLifecycle: availCamera size = localCameraProvider.availableCameraInfos.size")
             _isCameraSingle = true
@@ -378,58 +379,61 @@ class CameraKXDelegate(private val _cameraKXLayout: CameraKXLayout) : ICameraKX,
             preview, // camera preview use case
             _imageCapture!!, // image capture use case
             _imageAnalysis!!, // image analyzer use case
-        ).apply {
+        )
+
+        cameraControl?.let {
             if (!_isAutoFocus) {
-                if (_focusDistance == 0f) {
-                    disableAutofocus(cameraControl)
-                } else {
-                    changeFocusDistance(cameraControl, _focusDistance)
+                CameraKXUtil.disableAutofocus(it)
+                if (cameraInfo != null) {
+                    initSeekbarFocusDistance(seekBar, cameraInfo!!, it)
                 }
             }
+        }
 
-            // Init camera exposure control
-            cameraInfo.exposureState.run {
-                val lower = exposureCompensationRange.lower
-                val upper = exposureCompensationRange.upper
-
-                slider.run {
-                    valueFrom = lower.toFloat()
-                    valueTo = upper.toFloat()
-                    stepSize = 1f
-                    value = exposureCompensationIndex.toFloat()
-
-                    addOnChangeListener { _, value, _ ->
-                        cameraControl.setExposureCompensationIndex(value.toInt())
-                    }
-                }
-            }
-
+        // Init camera exposure control
+        cameraInfo?.let {
+            initSliderExposureCompensation(slider, it)
+        }
 
 //            Log.d(TAG, "bindToLifecycle: getSupportedResolutions ${CameraKXUtil.getSupportedResolutions(this)}")
+    }
+
+    private fun initSeekbarFocusDistance(seekBar: AppCompatSeekBar, cameraInfo: CameraInfo, cameraControl: CameraControl) {
+        val minAndMaxFocusDistance = CameraKXUtil.getFocusDistanceRange(cameraInfo)
+        if (minAndMaxFocusDistance != null) {
+            seekBar.progress = 50
+            seekBar.setOnSeekBarChangeListener(object : OnSeekBarChangeListener {
+                override fun onStartTrackingTouch(seekBar: SeekBar?) {
+
+                }
+
+                override fun onStopTrackingTouch(seekBar: SeekBar?) {
+                    if (seekBar != null) {
+                        val distance = (seekBar.progress.toFloat() / 100f) * abs(minAndMaxFocusDistance.first - minAndMaxFocusDistance.second)
+                        CameraKXUtil.changeFocusDistance(cameraControl, distance)
+                    }
+                }
+
+                override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
+
+                }
+            })
+            val distance = 0.5f * abs(minAndMaxFocusDistance.first - minAndMaxFocusDistance.second)
+            CameraKXUtil.changeFocusDistance(cameraControl, distance)
         }
     }
 
-    @androidx.annotation.OptIn(androidx.camera.camera2.interop.ExperimentalCamera2Interop::class)
-    fun disableAutofocus(cameraControl: CameraControl) {
-        val camera2CameraControl: Camera2CameraControl = Camera2CameraControl.from(cameraControl)
+    private fun initSliderExposureCompensation(slider: Slider, cameraInfo: CameraInfo) {
+        val lower = cameraInfo.exposureState.exposureCompensationRange.lower
+        val upper = cameraInfo.exposureState.exposureCompensationRange.upper
 
-        //Then you can set the focus mode you need like this
-        val captureRequestOptions = CaptureRequestOptions.Builder()
-            .setCaptureRequestOption(CaptureRequest.CONTROL_AF_MODE, CameraMetadata.CONTROL_AF_MODE_OFF)
-            .build()
-        camera2CameraControl.captureRequestOptions = captureRequestOptions
-    }
-
-    @androidx.annotation.OptIn(androidx.camera.camera2.interop.ExperimentalCamera2Interop::class)
-    fun changeFocusDistance(cameraControl: CameraControl, distance: Float) {
-        val camera2CameraControl: Camera2CameraControl = Camera2CameraControl.from(cameraControl)
-
-        //Then you can set the focus mode you need like this
-        val captureRequestOptions = CaptureRequestOptions.Builder()
-            .setCaptureRequestOption(CaptureRequest.CONTROL_AF_MODE, CameraMetadata.CONTROL_AF_MODE_OFF)
-            .setCaptureRequestOption(CaptureRequest.LENS_FOCUS_DISTANCE, distance)
-            .build()
-        camera2CameraControl.captureRequestOptions = captureRequestOptions
+        slider.valueFrom = lower.toFloat()
+        slider.valueTo = upper.toFloat()
+        slider.stepSize = 1f
+        slider.value = cameraInfo.exposureState.exposureCompensationIndex.toFloat()
+        slider.addOnChangeListener { _, value, _ ->
+            cameraControl?.setExposureCompensationIndex(value.toInt())
+        }
     }
 
     /**
