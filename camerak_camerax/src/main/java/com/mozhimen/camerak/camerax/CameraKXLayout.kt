@@ -13,6 +13,7 @@ import androidx.camera.view.PreviewView
 import androidx.lifecycle.LifecycleOwner
 import com.google.android.material.slider.Slider
 import androidx.appcompat.widget.AppCompatSeekBar
+import androidx.constraintlayout.widget.Group
 import com.mozhimen.basick.elemk.android.hardware.commons.IDisplayListener
 import com.mozhimen.basick.elemk.android.view.bases.BaseMultiGestureOnTouchCallback
 import com.mozhimen.basick.lintk.optins.permission.OPermission_CAMERA
@@ -48,15 +49,20 @@ class CameraKXLayout @JvmOverloads constructor(context: Context, attrs: Attribut
 
     private val _cameraXKDelegate: CameraKXDelegate by lazy { CameraKXDelegate(this) }
     private var _focusMeteringAction: FocusMeteringAction? = null
+
     //////////////////////////////////////////////////////////////////////////////////////////////
 
     private var _previewView: PreviewView? = null
     private var _slider: Slider? = null
+    private var _sliderGroup: Group? = null
     private var _seekbar: AppCompatSeekBar? = null
+    private var _seekbarGroup: Group? = null
 
     val previewView get() = _previewView
     val slider get() = _slider
     val seekBar get() = _seekbar
+    val sliderGroup get() = _sliderGroup
+    val seekbarGroup get() = _seekbarGroup
 
     //////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -71,7 +77,6 @@ class CameraKXLayout @JvmOverloads constructor(context: Context, attrs: Attribut
     private val _onAttachStateChangeListener = object : OnAttachStateChangeListener {
         override fun onViewAttachedToWindow(v: View) {
             _displayManager.registerDisplayListener(_displayManagerListener, null)
-
         }
 
         override fun onViewDetachedFromWindow(v: View) {
@@ -154,6 +159,10 @@ class CameraKXLayout @JvmOverloads constructor(context: Context, attrs: Attribut
             view.findViewById(R.id.cameraxk_slider)
         _seekbar =
             view.findViewById(R.id.cameraxk_seekbar)
+        _sliderGroup =
+            view.findViewById(R.id.cameraxk_slider_group)
+        _seekbarGroup =
+             view.findViewById(R.id.cameraxk_seekbar_group)
     }
 
 //    private fun initPreview() {
