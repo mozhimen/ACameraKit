@@ -1,7 +1,7 @@
 package com.mozhimen.camerak.camerax.commons
 
 import androidx.camera.core.CameraFilter
-import com.mozhimen.basick.utilk.commons.IUtilK
+import com.mozhimen.kotlin.utilk.commons.IUtilK
 
 
 /**

@@ -4,7 +4,7 @@ import android.annotation.SuppressLint
 import androidx.camera.core.CameraInfo
 import androidx.camera.core.impl.CameraInfoInternal
 import androidx.core.util.Preconditions
-import com.mozhimen.basick.utilk.android.util.d
+import com.mozhimen.kotlin.utilk.android.util.d
 import com.mozhimen.camerak.camerax.commons.ICameraKXFilter
 
 

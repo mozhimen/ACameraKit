@@ -2,7 +2,7 @@ package com.mozhimen.camerak.opengl
 
 import android.graphics.Rect
 import android.graphics.RectF
-import com.mozhimen.basick.utilk.kotlin.ranges.constraint
+import com.mozhimen.kotlin.utilk.kotlin.ranges.constraint
 import kotlin.math.roundToInt
 
 /**

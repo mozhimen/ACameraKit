@@ -1,10 +1,9 @@
 package com.mozhimen.camerak.camerax.test
 
-import com.mozhimen.basick.elemk.android.app.bases.BaseApplication
-import com.mozhimen.basick.lintk.optins.OApiInit_InApplication
-import com.mozhimen.basick.lintk.optins.OApiMultiDex_InApplication
-import com.mozhimen.basick.lintk.optins.permission.OPermission_READ_PHONE_STATE
-import com.mozhimen.basick.lintk.optins.permission.OPermission_READ_PRIVILEGED_PHONE_STATE
+import android.app.Application
+import com.mozhimen.kotlin.lintk.optins.OApiInit_InApplication
+import com.mozhimen.kotlin.lintk.optins.permission.OPermission_READ_PHONE_STATE
+import com.mozhimen.kotlin.lintk.optins.permission.OPermission_READ_PRIVILEGED_PHONE_STATE
 import com.mozhimen.crashk.CrashKMgr
 
 /**
@@ -13,8 +12,8 @@ import com.mozhimen.crashk.CrashKMgr
  * @Author Mozhimen / Kolin Zhao
  * @Version 1.0
  */
-@OptIn(OApiMultiDex_InApplication::class, OApiInit_InApplication::class)
-class MainApplication:BaseApplication() {
+@OptIn(OApiInit_InApplication::class)
+class MainApplication : Application() {
     @OptIn(OPermission_READ_PHONE_STATE::class, OPermission_READ_PRIVILEGED_PHONE_STATE::class)
     override fun onCreate() {
         super.onCreate()

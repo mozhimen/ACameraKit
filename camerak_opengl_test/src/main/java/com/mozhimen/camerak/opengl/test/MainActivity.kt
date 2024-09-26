@@ -12,10 +12,8 @@ import android.os.Message
 import android.util.Log
 import android.view.Surface
 import androidx.appcompat.app.AppCompatActivity
-import com.mozhimen.basick.elemk.androidx.appcompat.bases.viewbinding.BaseActivityVB
-import com.mozhimen.basick.utilk.android.content.UtilKContext
-import com.mozhimen.basick.utilk.commons.IUtilK
-import com.mozhimen.camerak.opengl.test.databinding.ActivityMainBinding
+import com.mozhimen.kotlin.utilk.android.content.UtilKContext
+import com.mozhimen.kotlin.utilk.commons.IUtilK
 
 class MainActivity : AppCompatActivity(), IUtilK {
     private var _handler: Handler? = null

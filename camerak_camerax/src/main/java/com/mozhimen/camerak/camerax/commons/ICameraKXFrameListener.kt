@@ -1,7 +1,7 @@
 package com.mozhimen.camerak.camerax.commons
 
 import androidx.camera.core.ImageProxy
-import com.mozhimen.basick.elemk.commons.IA_Listener
+import com.mozhimen.kotlin.elemk.commons.IA_Listener
 
 /**
  * @ClassName ICameraXKFrameListener

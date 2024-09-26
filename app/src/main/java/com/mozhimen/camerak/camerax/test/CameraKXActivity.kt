@@ -4,11 +4,10 @@ import android.annotation.SuppressLint
 import android.graphics.Bitmap
 import android.os.Bundle
 import androidx.camera.core.ImageProxy
-import com.mozhimen.basick.elemk.androidx.appcompat.bases.databinding.BaseActivityVDB
-import com.mozhimen.basick.lintk.optins.OFieldCall_Close
-import com.mozhimen.basick.lintk.optins.permission.OPermission_CAMERA
-import com.mozhimen.basick.utilk.android.app.UtilKActivityStart
-import com.mozhimen.basick.utilk.android.view.applyVisible
+import com.mozhimen.kotlin.lintk.optins.OFieldCall_Close
+import com.mozhimen.kotlin.lintk.optins.permission.OPermission_CAMERA
+import com.mozhimen.kotlin.utilk.android.app.UtilKActivityStart
+import com.mozhimen.kotlin.utilk.android.view.applyVisible
 import com.mozhimen.camerak.camerax.annors.AAspectRatio
 import com.mozhimen.camerak.camerax.test.databinding.ActivityCameraxkBinding
 import com.mozhimen.camerak.camerax.annors.ACameraKXFacing
@@ -20,6 +19,7 @@ import com.mozhimen.camerak.camerax.utils.imageProxyRgba88882bitmapRgba8888
 import com.mozhimen.camerak.camerax.utils.imageProxyYuv4208882bitmapJpeg
 import com.mozhimen.manifestk.xxpermissions.XXPermissionsCheckUtil
 import com.mozhimen.manifestk.xxpermissions.XXPermissionsRequestUtil
+import com.mozhimen.mvvmk.bases.activity.databinding.BaseActivityVDB
 
 @OptIn(OPermission_CAMERA::class)
 class CameraKXActivity : BaseActivityVDB<ActivityCameraxkBinding>() {

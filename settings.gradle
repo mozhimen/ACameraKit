@@ -34,6 +34,7 @@ include ':ALibKit_Squareup:moshi'
 //SwiftKit
 include ':SwiftKit'
 project(':SwiftKit').projectDir = new File("D:\\WorkSpace\\GitHub\\SwiftKit")
+include ':SwiftKit:mvvmk'
 include ':SwiftKit:basick'
 include ':SwiftKit:xmlk'
 //AManifestKit_XXPermissions
@@ -50,11 +51,13 @@ include ':ACrashKit:crashk_native'
 include ':ALogKit'
 project(':ALogKit').projectDir = new File("D:\\WorkSpace\\GitHub\\ALogKit")
 include ':ALogKit:logk'
+include ':ALogKit:basic'
 //AXmlKit
 include ':AXmlKit'
 project(':AXmlKit').projectDir = new File("D:\\WorkSpace\\GitHub\\AXmlKit")
 include ':AXmlKit:recyclerk'
 include ':AXmlKit:vhk'
+include ':AXmlKit:basic'
 //AOpenGLKit
 include ':AOpenGLKit'
 project(':AOpenGLKit').projectDir = new File("D:\\WorkSpace\\GitHub\\AOpenGLKit")
@@ -63,4 +66,9 @@ include ':AOpenGLKit:openglk_basic'
 include ':ASerialKit'
 project(':ASerialKit').projectDir = new File("D:\\WorkSpace\\GitHub\\ASerialKit")
 include ':ASerialKit:serialk_moshi'
+//KUtilKit
+include ':KUtilKit'
+project(':KUtilKit').projectDir = new File("D:\\WorkSpace\\GitHub\\KUtilKit")
+include ':KUtilKit:utilk_android'
+include ':KUtilKit:utilk_kotlin'
 

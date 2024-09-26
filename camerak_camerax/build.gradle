@@ -36,6 +36,8 @@ android {
 dependencies {
     //cameraxk
     api project(':ALibKit_Jetpack:camera')
+    implementation project(':KUtilKit:utilk_android')
+    api project(':AXmlKit:basic')
     implementation project(':SwiftKit:basick')
     implementation project(':SwiftKit:xmlk')
 

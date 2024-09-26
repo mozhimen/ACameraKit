@@ -7,19 +7,17 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewTreeObserver.OnGlobalLayoutListener
-import android.widget.SeekBar
 import androidx.camera.core.FocusMeteringAction
 import androidx.camera.view.PreviewView
 import androidx.lifecycle.LifecycleOwner
 import com.google.android.material.slider.Slider
 import androidx.appcompat.widget.AppCompatSeekBar
 import androidx.constraintlayout.widget.Group
-import com.mozhimen.basick.elemk.android.hardware.commons.IDisplayListener
-import com.mozhimen.basick.elemk.android.view.bases.BaseMultiGestureOnTouchCallback
-import com.mozhimen.basick.lintk.optins.permission.OPermission_CAMERA
-import com.mozhimen.basick.manifestk.cons.CPermission
-import com.mozhimen.basick.utilk.android.hardware.UtilKDisplayManager
-import com.mozhimen.basick.utilk.wrapper.UtilKPermission
+import com.mozhimen.kotlin.elemk.android.hardware.commons.IDisplayListener
+import com.mozhimen.kotlin.elemk.android.view.bases.BaseMultiGestureOnTouchCallback
+import com.mozhimen.kotlin.lintk.optins.permission.OPermission_CAMERA
+import com.mozhimen.kotlin.utilk.android.hardware.UtilKDisplayManager
+import com.mozhimen.kotlin.utilk.wrapper.UtilKPermission
 import com.mozhimen.camerak.camerax.annors.AAspectRatio
 import com.mozhimen.camerak.camerax.annors.ACameraKXFacing
 import com.mozhimen.camerak.camerax.commons.ICameraKX
@@ -30,7 +28,8 @@ import com.mozhimen.camerak.camerax.cons.ECameraKXTimer
 import com.mozhimen.camerak.camerax.helpers.CameraKXDelegate
 import com.mozhimen.camerak.camerax.utils.CameraKXUtil
 import com.mozhimen.camerak.camerax.mos.CameraKXConfig
-import com.mozhimen.xmlk.bases.BaseLayoutKFrame
+import com.mozhimen.kotlin.elemk.android.cons.CPermission
+import com.mozhimen.xmlk.basic.bases.BaseLayoutKFrame
 
 /**
  * @ClassName CameraXKPreview

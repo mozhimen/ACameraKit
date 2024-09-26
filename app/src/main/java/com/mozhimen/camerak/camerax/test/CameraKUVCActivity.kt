@@ -6,15 +6,12 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.view.TextureView
-import com.mozhimen.basick.elemk.androidx.appcompat.bases.databinding.BaseActivityVDB
-import com.mozhimen.basick.lintk.optins.permission.OPermission_CAMERA
-import com.mozhimen.basick.manifestk.cons.CPermission
-import com.mozhimen.basick.manifestk.permission.ManifestKPermission
-import com.mozhimen.basick.manifestk.permission.annors.APermissionCheck
+import com.mozhimen.kotlin.lintk.optins.permission.OPermission_CAMERA
 import com.mozhimen.camerak.*
 import com.mozhimen.camerak_uvc.Direction
 import com.mozhimen.camerak.camerax.test.databinding.ActivityCamerakBinding
 import com.mozhimen.manifestk.xxpermissions.XXPermissionsRequestUtil
+import com.mozhimen.mvvmk.bases.activity.databinding.BaseActivityVDB
 
 /**
  * @ClassName CameraKActivity

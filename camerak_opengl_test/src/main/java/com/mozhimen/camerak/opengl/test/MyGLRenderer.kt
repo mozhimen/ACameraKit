@@ -21,7 +21,7 @@ class MyGLRenderer(context: Context) : GLSurfaceView.Renderer {
     private var _handler: Handler? = null
     private var _surfaceTexture: SurfaceTexture? = null
     private var _bitmap: Bitmap? = null
-
+private var _textureMVPMatrix:TextureMVPMatrix? = null
     private var _bitmapWidth = 0
     private var _bitmapHeight = 0
     private var _surfaceWidth = 0
@@ -46,7 +46,9 @@ class MyGLRenderer(context: Context) : GLSurfaceView.Renderer {
 
     override fun onSurfaceCreated(gl: GL10?, config: EGLConfig?) {
         GLES30.glClearColor(1.0f, 0.0f, 0.0f, 1f)
-        _triangle = TextureMVPMatrix(_bitmap)
+        if (_bitmap!=null){
+            _textureMVPMatrix = TextureMVPMatrix(_bitmap!!)
+        }
     }
 
     override fun onSurfaceChanged(gl: GL10?, width: Int, height: Int) {
