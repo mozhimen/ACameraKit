@@ -11,7 +11,7 @@ import com.mozhimen.camerak.*
 import com.mozhimen.camerak_uvc.Direction
 import com.mozhimen.camerak.camerax.test.databinding.ActivityCamerakBinding
 import com.mozhimen.manifestk.xxpermissions.XXPermissionsRequestUtil
-import com.mozhimen.mvvmk.bases.activity.databinding.BaseActivityVDB
+import com.mozhimen.bindk.bases.activity.databinding.BaseActivityVDB
 
 /**
  * @ClassName CameraKActivity
