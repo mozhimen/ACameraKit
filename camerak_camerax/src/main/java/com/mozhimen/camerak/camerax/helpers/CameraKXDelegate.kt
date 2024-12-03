@@ -32,7 +32,6 @@ import com.mozhimen.kotlin.utilk.kotlin.ranges.constraint
 import com.mozhimen.camerak.camerax.CameraKXLayout
 import com.mozhimen.camerak.camerax.CameraKXLayout.Companion.DEBUG
 import com.mozhimen.camerak.camerax.annors.AAspectRatio
-import com.mozhimen.camerak.camerax.annors.ACameraKXCaptureMode
 import com.mozhimen.camerak.camerax.annors.ACameraKXFacing
 import com.mozhimen.camerak.camerax.annors.ACameraKXFormat
 import com.mozhimen.camerak.camerax.annors.ACameraKXRotation
@@ -47,6 +46,7 @@ import com.mozhimen.camerak.camerax.utils.CameraKXUtil
 import com.mozhimen.camerak.camerax.utils.imageProxyJpeg2bitmapJpeg
 import com.mozhimen.camerak.camerax.utils.imageProxyRgba88882bitmapRgba8888
 import com.mozhimen.camerak.camerax.utils.imageProxyYuv4208882bitmapJpeg
+import com.mozhimen.libk.jetpack.camera.cons.CImageCapture
 import kotlinx.coroutines.delay
 import java.util.concurrent.ExecutionException
 import kotlin.math.abs
@@ -68,7 +68,7 @@ class CameraKXDelegate(private val _cameraKXLayout: CameraKXLayout) : ICameraKX,
     private var _cameraXKFrameListener: ICameraXKFrameListener? = null
     private var _cameraXKTimer = ECameraKXTimer.OFF
     private var _imageFormatFrame: Int = ImageAnalysis.OUTPUT_IMAGE_FORMAT_YUV_420_888
-    private var _imageCaptureMode = ACameraKXCaptureMode.MAXIMIZE_QUALITY
+    private var _imageCaptureMode = CImageCapture.CAPTURE_MODE_MAXIMIZE_QUALITY
     private var _isCameraSingle: Boolean = false
     private var _isCameraOpen: Boolean = false
     private var _isAutoFocus: Boolean = true

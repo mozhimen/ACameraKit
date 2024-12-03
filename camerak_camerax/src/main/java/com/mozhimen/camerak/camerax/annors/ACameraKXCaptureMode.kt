@@ -3,6 +3,7 @@ package com.mozhimen.camerak.camerax.annors
 import android.annotation.SuppressLint
 import androidx.annotation.IntDef
 import androidx.camera.core.ImageCapture
+import com.mozhimen.libk.jetpack.camera.cons.CImageCapture
 
 /**
  * @ClassName ACameraKXCaptureMode
@@ -12,11 +13,5 @@ import androidx.camera.core.ImageCapture
  * @Version 1.0
  */
 @SuppressLint("UnsafeOptInUsageError")
-@IntDef(ImageCapture.CAPTURE_MODE_MAXIMIZE_QUALITY, ImageCapture.CAPTURE_MODE_MINIMIZE_LATENCY, ImageCapture.CAPTURE_MODE_ZERO_SHUTTER_LAG)
-annotation class ACameraKXCaptureMode {
-    companion object {
-        const val MAXIMIZE_QUALITY = ImageCapture.CAPTURE_MODE_MAXIMIZE_QUALITY
-        const val MINIMIZE_LATENCY = ImageCapture.CAPTURE_MODE_MINIMIZE_LATENCY
-        const val ZERO_SHUTTER_LAG = ImageCapture.CAPTURE_MODE_ZERO_SHUTTER_LAG
-    }
-}
+@IntDef(CImageCapture.CAPTURE_MODE_MAXIMIZE_QUALITY, CImageCapture.CAPTURE_MODE_MINIMIZE_LATENCY, CImageCapture.CAPTURE_MODE_ZERO_SHUTTER_LAG)
+annotation class ACameraKXCaptureMode
