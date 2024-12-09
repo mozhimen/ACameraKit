@@ -20,6 +20,14 @@ import com.mozhimen.camerak.camerax.utils.imageProxyYuv4208882bitmapJpeg
 import com.mozhimen.manifestk.xxpermissions.XXPermissionsCheckUtil
 import com.mozhimen.manifestk.xxpermissions.XXPermissionsRequestUtil
 import com.mozhimen.bindk.bases.viewdatabinding.activity.BaseActivityVDB
+import com.mozhimen.kotlin.utilk.android.graphics.bitmapAny2file
+import com.mozhimen.kotlin.utilk.android.graphics.getByteCount_ofM
+import com.mozhimen.kotlin.utilk.android.util.UtilKLogWrapper
+import com.mozhimen.kotlin.utilk.java.io.getFileSize_ofAvaioflable
+import com.mozhimen.kotlin.utilk.kotlin.UtilKStrFile
+import com.mozhimen.kotlin.utilk.kotlin.getStrFolderPath
+import com.mozhimen.kotlin.utilk.kotlin.longFileSize2strFileSize
+import com.mozhimen.libk.jetpack.camera.cons.CImageCapture
 
 
 @OptIn(OPermission_CAMERA::class)
@@ -37,8 +45,16 @@ class CameraKXActivity : BaseActivityVDB<ActivityCameraxkBinding>() {
         vdb.cameraxkPreviewLayout.apply {
 //            slider?.applyVisible()
 //            seekBar?.applyVisible()
-            initCameraKX(this@CameraKXActivity, CameraKXConfig(_format, ACameraKXFacing.BACK, aspectRatio = AAspectRatio.RATIO_4_3, isAutoFocus = false))
-            setCameraXFrameListener(_cameraKXFrameListener)
+            initCameraKX(
+                this@CameraKXActivity, CameraKXConfig(
+                    _format,
+                    ACameraKXFacing.BACK,
+                    aspectRatio = AAspectRatio.RATIO_4_3,
+                    isAutoFocus = false,
+                    captureMode = CImageCapture.CAPTURE_MODE_MAXIMIZE_QUALITY
+                )
+            )
+//            setCameraXFrameListener(_cameraKXFrameListener)
             setCameraXCaptureListener(_cameraKXCaptureListener)
             if (!XXPermissionsCheckUtil.hasCameraPermission(this@CameraKXActivity)) {
                 XXPermissionsRequestUtil.requestCameraPermission(this@CameraKXActivity, onGranted = {
@@ -55,28 +71,31 @@ class CameraKXActivity : BaseActivityVDB<ActivityCameraxkBinding>() {
 
     private var _outputBitmap: Bitmap? = null
 
-    @OptIn(OFieldCall_Close::class)
-    private val _cameraKXFrameListener: ICameraXKFrameListener by lazy {
-        object : ICameraXKFrameListener {
-            @SuppressLint("UnsafeOptInUsageError")
-            override fun invoke(imageProxy: ImageProxy) {
-                when (_format) {
-                    ACameraKXFormat.RGBA_8888 -> _outputBitmap = imageProxy.imageProxyRgba88882bitmapRgba8888()
-                    ACameraKXFormat.YUV_420_888 -> _outputBitmap = imageProxy.imageProxyYuv4208882bitmapJpeg()
-                }
-                _outputBitmap?.let {
-                    runOnUiThread {
-                        vdb.cameraxkImg1.setImageBitmap(_outputBitmap)
-                    }
-                }
-                imageProxy.close()
-            }
-        }
-    }
+//    @OptIn(OFieldCall_Close::class)
+//    private val _cameraKXFrameListener: ICameraXKFrameListener by lazy {
+//        object : ICameraXKFrameListener {
+//            @SuppressLint("UnsafeOptInUsageError")
+//            override fun invoke(imageProxy: ImageProxy) {
+//                when (_format) {
+//                    ACameraKXFormat.RGBA_8888 -> _outputBitmap = imageProxy.imageProxyRgba88882bitmapRgba8888()
+//                    ACameraKXFormat.YUV_420_888 -> _outputBitmap = imageProxy.imageProxyYuv4208882bitmapJpeg()
+//                }
+//                _outputBitmap?.let {
+//                    runOnUiThread {
+//                        vdb.cameraxkImg1.setImageBitmap(_outputBitmap)
+//                    }
+//                }
+//                imageProxy.close()
+//            }
+//        }
+//    }
 
     private val _cameraKXCaptureListener = object : ICameraKXCaptureListener {
         override fun onCaptureSuccess(bitmap: Bitmap, imageRotation: Int) {
             runOnUiThread {
+                UtilKLogWrapper.d(TAG, "invoke: size ${bitmap.getByteCount_ofM()}")
+                val file = bitmap.bitmapAny2file(this@CameraKXActivity.cacheDir.absolutePath.getStrFolderPath()+"${UtilKStrFile.getStrFileName_ofNow()}.jpg")
+                UtilKLogWrapper.d(TAG, "onCaptureSuccess: file size ${file?.length()?.longFileSize2strFileSize()}")
                 vdb.cameraxkImg.setImageBitmap(bitmap)
             }
         }

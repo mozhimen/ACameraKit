@@ -259,6 +259,7 @@ class CameraKXDelegate(private val _cameraKXLayout: CameraKXLayout) : ICameraKX,
                         .setCaptureMode(_imageCaptureMode) // setting to have pictures with highest quality possible (may be slow)
                         .setFlashMode(this.flashMode) // set capture flash
                         .build()
+                    UtilKLogWrapper.d(TAG, "restartCameraKX: _imageCaptureMode $_imageCaptureMode")
 
                     //////////////////////////////////////////////////////////////////////////////////////////////////////////////
                     //Hdr

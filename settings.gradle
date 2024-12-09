@@ -45,8 +45,9 @@ include ':AManifestKit_XXPermissions:library'
 //ACrashKit
 include ':ACrashKit'
 project(':ACrashKit').projectDir = new File("D:\\WorkSpace\\GitHub\\ACrashKit")
-include ':ACrashKit:crashk'
+include ':ACrashKit:crashk_java'
 include ':ACrashKit:crashk_native'
+include ':ACrashKit:crashk_basic'
 //ALogKit
 include ':ALogKit'
 project(':ALogKit').projectDir = new File("D:\\WorkSpace\\GitHub\\ALogKit")
