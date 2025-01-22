@@ -1,0 +1,24 @@
+<resources>
+    <string name="app_name">ACameraKit_Dahua</string>
+
+    <string name="activity_function_list_live_preview"> Live Preview (Single Channel) </string>
+    <string name="activity_iplogin_device_ip">IP</string>
+    <string name="activity_iplogin_device_port">Port</string>
+    <string name="activity_iplogin_username">Username</string>
+    <string name="activity_iplogin_password">Password</string>
+    <string name="common_login">Login</string>
+    <string name="common_logout">Logout</string>
+    <string name ="common_remember_info"> Remember me</string>
+    <string name="activity_main_ip"> IP Login</string>
+    <string name="NET_ERROR">Unknown error</string>
+    <string name="NET_USER_FLASEPWD_TRYTIME">The password you typed is incorrect. </string>
+    <string name="NET_LOGIN_ERROR_PASSWORD">Password is not correct</string>
+    <string name="NET_LOGIN_ERROR_USER">The account does not exist</string>
+    <string name="NET_LOGIN_ERROR_TIMEOUT">Time out for log in returned value.</string>
+    <string name="NET_LOGIN_ERROR_RELOGGIN">The account has logged in</string>
+    <string name="NET_LOGIN_ERROR_LOCKED">The account has been locked</string>
+    <string name="NET_LOGIN_ERROR_BLACKLIST">The account has been in the black list</string>
+    <string name="NET_LOGIN_ERROR_BUSY">Resources are not sufficient. System is busy now.</string>
+    <string name="NET_LOGIN_ERROR_CONNECT">Time out. Please check network and try again.</string>
+    <string name="NET_LOGIN_ERROR_NETWORK">Network connection failed.</string>
+</resources>

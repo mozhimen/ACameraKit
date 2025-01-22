@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+
+            <com.mozhimen.camerak.dahua.test.ClearEditText
+                android:id="@+id/et_address"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:ems="10"
+                android:hint="@string/activity_iplogin_device_ip"
+                android:inputType="text"
+                android:textSize="13sp" />
+
+            <com.mozhimen.camerak.dahua.test.ClearEditText
+                android:id="@+id/et_port"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:ems="10"
+                android:hint="@string/activity_iplogin_device_port"
+                android:inputType="number"
+                android:textSize="13sp" />
+
+            <com.mozhimen.camerak.dahua.test.ClearEditText
+                android:id="@+id/et_admin"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:ems="10"
+                android:hint="@string/activity_iplogin_username"
+                android:inputType="text"
+                android:textSize="13sp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:orientation="horizontal"
+                android:weightSum="2">
+
+                <com.mozhimen.camerak.dahua.test.ClearEditText
+                    android:id="@+id/et_pwd"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="2"
+                    android:ems="10"
+                    android:hint="@string/activity_iplogin_password"
+                    android:inputType="textPassword"
+                    android:textSize="13sp" />
+
+                <com.mozhimen.xmlk.btnk.pwd.BtnKPwdVisible
+                    android:id="@+id/eye_button_ip"
+                    android:layout_width="35dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"/>
+            </LinearLayout>
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/btn_login"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginTop="20dp"
+            android:text="@string/common_login"
+            android:textAllCaps="false" />
+
+        <CheckBox
+            android:id="@+id/cb_is_save"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/btn_login"
+            android:layout_alignParentStart="true"
+            android:checked="true"
+            android:text="@string/common_remember_info" />
+
+    </RelativeLayout>
+</layout>

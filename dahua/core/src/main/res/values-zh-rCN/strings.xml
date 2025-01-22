@@ -1,0 +1,22 @@
+<resources>
+    <array name="stream_type_array">
+        <item>主码流</item>
+        <item>辅码流</item>
+    </array>
+    <string name="live_preview_not_open">请先打开实时预览</string>
+    <string name="channel">通道</string>
+    <string name="local_record_failed">本地录像失败</string>
+
+    <string name="NET_ERROR">未知错误</string>
+    <string name="NET_USER_FLASEPWD_TRYTIME">输入密码错误超过限制次数</string>
+    <string name="NET_LOGIN_ERROR_PASSWORD">密码不正确</string>
+    <string name="NET_LOGIN_ERROR_USER">帐户不存在</string>
+    <string name="NET_LOGIN_ERROR_TIMEOUT">等待登录返回超时</string>
+    <string name="NET_LOGIN_ERROR_RELOGGIN">帐号已登录</string>
+    <string name="NET_LOGIN_ERROR_LOCKED">帐号已被锁定</string>
+    <string name="NET_LOGIN_ERROR_BLACKLIST">帐号已被列为黑名单</string>
+    <string name="NET_LOGIN_ERROR_BUSY">资源不足,系统忙</string>
+    <string name="NET_LOGIN_ERROR_CONNECT">登录设备超时,请检查网络并重试</string>
+    <string name="NET_LOGIN_ERROR_NETWORK">网络连接失败</string>
+
+</resources>

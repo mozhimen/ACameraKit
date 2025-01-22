@@ -1,0 +1,25 @@
+<resources>
+    <string name="app_name">CameraKit_Dahua</string>
+
+    <string name="activity_function_list_live_preview"> 单通道预览 </string>
+    <string name="activity_iplogin_device_ip">IP</string>
+    <string name="activity_iplogin_device_port">端口</string>
+    <string name="activity_iplogin_username">用户名</string>
+    <string name="activity_iplogin_password">密码</string>
+    <string name="common_login">登录</string>
+    <string name="common_logout">登出</string>
+    <string name="common_remember_info">保存登录信息</string>
+
+    <string name="NET_ERROR">未知错误</string>
+    <string name="NET_USER_FLASEPWD_TRYTIME">输入密码错误超过限制次数</string>
+    <string name="NET_LOGIN_ERROR_PASSWORD">密码不正确</string>
+    <string name="NET_LOGIN_ERROR_USER">帐户不存在</string>
+    <string name="NET_LOGIN_ERROR_TIMEOUT">等待登录返回超时</string>
+    <string name="NET_LOGIN_ERROR_RELOGGIN">帐号已登录</string>
+    <string name="NET_LOGIN_ERROR_LOCKED">帐号已被锁定</string>
+    <string name="NET_LOGIN_ERROR_BLACKLIST">帐号已被列为黑名单</string>
+    <string name="NET_LOGIN_ERROR_BUSY">资源不足,系统忙</string>
+    <string name="NET_LOGIN_ERROR_CONNECT">登录设备超时,请检查网络并重试</string>
+    <string name="NET_LOGIN_ERROR_NETWORK">网络连接失败</string>
+
+</resources>

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:paddingHorizontal="20dp">
+
+        <Button
+            android:id="@+id/btnIPLogin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/activity_main_ip"
+            android:textAllCaps="false" />
+
+       <!-- <Button
+            android:id="@+id/btnP2PLogin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:text="@string/activity_main_p2p"
+            android:textAllCaps="false" />
+
+        <Button
+            android:id="@+id/btnDevcieSearch"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:text="@string/activity_main_search_device"
+            android:textAllCaps="false" />
+
+        <Button
+            android:id="@+id/btnInitDevAccount"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:text="@string/activity_main_init_dev_account"
+            android:textAllCaps="false" />
+
+        <Button
+            android:id="@+id/btnApConfig"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:text="@string/activity_main_ap_config"
+            android:textAllCaps="false" />-->
+
+    </LinearLayout>
+</layout>

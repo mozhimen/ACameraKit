@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="stream_type_array">
+        <item>Main</item>
+        <item>Extra</item>
+    </array>
+    <string name="live_preview_not_open">Please start play first.</string>
+    <string name="channel">Channel</string>
+    <string name="local_record_failed">Local record failed.</string>
+
+    <string name="NET_ERROR">Unknown error</string>
+    <string name="NET_USER_FLASEPWD_TRYTIME">The password you typed is incorrect. </string>
+    <string name="NET_LOGIN_ERROR_PASSWORD">Password is not correct</string>
+    <string name="NET_LOGIN_ERROR_USER">The account does not exist</string>
+    <string name="NET_LOGIN_ERROR_TIMEOUT">Time out for log in returned value.</string>
+    <string name="NET_LOGIN_ERROR_RELOGGIN">The account has logged in</string>
+    <string name="NET_LOGIN_ERROR_LOCKED">The account has been locked</string>
+    <string name="NET_LOGIN_ERROR_BLACKLIST">The account has been in the black list</string>
+    <string name="NET_LOGIN_ERROR_BUSY">Resources are not sufficient. System is busy now.</string>
+    <string name="NET_LOGIN_ERROR_CONNECT">Time out. Please check network and try again.</string>
+    <string name="NET_LOGIN_ERROR_NETWORK">Network connection failed.</string>
+
+</resources>

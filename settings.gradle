@@ -19,24 +19,43 @@ dependencyResolutionManagement {
 }
 
 rootProject.name = "ACameraKit"
-include ':camerak_camerax'
+include ':camerax'
 include ':app'
-include ':camerak_opengl'
-include ':camerak_opengl_test'
+include ':dahua:basic'
+include ':dahua:core'
+include ':dahua:test'
+include ':dahua:exam'
+include ':opengl'
+include ':opengl:test'
+include ':opengl:proxy'
+include ':opengl:proxy:test'
+//ALibKit_Google
+include ':ALibKit_Google'
+project(':ALibKit_Google').projectDir = new File("D:\\WorkSpace\\GitHub\\ALibKit_Google")
+include ':ALibKit_Google:material'
+include ':ALibKit_Google:zxing'
+//ALibKit_Jetbrains
+include ':ALibKit_Jetbrains'
+project(':ALibKit_Jetbrains').projectDir = new File("D:\\WorkSpace\\GitHub\\ALibKit_Jetbrains")
+include ':ALibKit_Jetbrains:kotlin_stdlib'
+include ':ALibKit_Jetbrains:kotlinx_coroutines'
 //ALibKit_Jetpack
 include ':ALibKit_Jetpack'
 project(':ALibKit_Jetpack').projectDir = new File("D:\\WorkSpace\\GitHub\\ALibKit_Jetpack")
 include ':ALibKit_Jetpack:camera'
+include ':ALibKit_Jetpack:annotation'
+include ':ALibKit_Jetpack:databinding'
+include ':ALibKit_Jetpack:core'
 //ALibKit_Squareup
 include ':ALibKit_Squareup'
 project(':ALibKit_Squareup').projectDir = new File("D:\\WorkSpace\\GitHub\\ALibKit_Squareup")
 include ':ALibKit_Squareup:moshi'
-//SwiftKit
-include ':SwiftKit'
-project(':SwiftKit').projectDir = new File("D:\\WorkSpace\\GitHub\\SwiftKit")
-include ':SwiftKit:bindk'
-include ':SwiftKit:basick'
-include ':SwiftKit:xmlk'
+//ASwiftKit
+include ':ASwiftKit'
+project(':ASwiftKit').projectDir = new File("D:\\WorkSpace\\GitHub\\ASwiftKit")
+include ':ASwiftKit:bindk'
+include ':ASwiftKit:basick'
+include ':ASwiftKit:xmlk'
 //AManifestKit_XXPermissions
 include ':AManifestKit_XXPermissions'
 project(':AManifestKit_XXPermissions').projectDir = new File("D:\\WorkSpace\\GitHub\\AManifestKit_XXPermissions")
@@ -45,9 +64,9 @@ include ':AManifestKit_XXPermissions:library'
 //ACrashKit
 include ':ACrashKit'
 project(':ACrashKit').projectDir = new File("D:\\WorkSpace\\GitHub\\ACrashKit")
-include ':ACrashKit:crashk_java'
-include ':ACrashKit:crashk_native'
-include ':ACrashKit:crashk_basic'
+include ':ACrashKit:java'
+include ':ACrashKit:native'
+include ':ACrashKit:basic'
 //ALogKit
 include ':ALogKit'
 project(':ALogKit').projectDir = new File("D:\\WorkSpace\\GitHub\\ALogKit")
@@ -62,14 +81,23 @@ include ':AXmlKit:basic'
 //AOpenGLKit
 include ':AOpenGLKit'
 project(':AOpenGLKit').projectDir = new File("D:\\WorkSpace\\GitHub\\AOpenGLKit")
-include ':AOpenGLKit:openglk_basic'
+include ':AOpenGLKit:basic'
 //ASerialKit
 include ':ASerialKit'
 project(':ASerialKit').projectDir = new File("D:\\WorkSpace\\GitHub\\ASerialKit")
-include ':ASerialKit:serialk_moshi'
+include ':ASerialKit:moshi'
 //KUtilKit
 include ':KUtilKit'
 project(':KUtilKit').projectDir = new File("D:\\WorkSpace\\GitHub\\KUtilKit")
-include ':KUtilKit:utilk_android'
-include ':KUtilKit:utilk_kotlin'
+include ':KUtilKit:android'
+include ':KUtilKit:kotlin'
+//AXmlKit
+include ':AXmlKit'
+project(':AXmlKit').projectDir = new File("D:\\WorkSpace\\GitHub\\AXmlKit")
+include ':AXmlKit:btnk_pwd'
+//ACacheKit
+include ':ACacheKit'
+project(':ACacheKit').projectDir = new File("D:\\WorkSpace\\GitHub\\ACacheKit")
+include ':ACacheKit:sharedpreferences'
+include ':ACacheKit:basic'
 

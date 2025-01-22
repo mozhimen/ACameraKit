@@ -41,10 +41,10 @@ android {
 }
 
 dependencies {
-    implementation project(':SwiftKit:bindk')
-    implementation project(':SwiftKit:xmlk')
-    implementation project(':ACrashKit:crashk_java')
-    implementation project(':camerak_camerax')
+    implementation project(':ASwiftKit:bindk')
+    implementation project(':ASwiftKit:xmlk')
+    implementation project(':ACrashKit:java')
+    implementation project(':camerax')
     implementation project(':AManifestKit_XXPermissions:manifestk_xxpermissions')
     implementation 'com.github.mozhimen.CameraKit_UVC:camerak_uvc:1.0.4'
 

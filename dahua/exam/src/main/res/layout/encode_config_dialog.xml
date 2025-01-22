@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/blueGrey"
+        android:textSize="22sp"
+        android:layout_above="@+id/encode_set_layout"
+        android:text="@string/video_encode"
+        android:textAlignment="center" />
+
+    <RelativeLayout
+        android:id="@+id/encode_set_layout"
+        style="@style/config_relativeLayout"
+        android:layout_width="match_parent">
+
+        <TextView
+            android:id="@+id/encode_set_label"
+            style="@style/config_text"
+            android:text="@string/compress_format" />
+
+        <TextView
+            android:id="@+id/encode_set_text"
+            style="@style/config_text_image"
+            android:background="@null"
+            android:layout_toRightOf="@id/encode_set_label"
+            android:drawableRight="@drawable/mm_submenu" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/resolution_set_layout"
+        style="@style/config_relativeLayout"
+        android:layout_width="match_parent">
+
+        <TextView
+            android:id="@+id/resolution_set_label"
+            style="@style/config_text"
+            android:text="@string/resolve_ratio" />
+
+        <TextView
+            android:id="@+id/resolution_set_text"
+            style="@style/config_text_image"
+            android:background="@null"
+            android:layout_toRightOf="@id/resolution_set_label"
+            android:drawableRight="@drawable/mm_submenu" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/frame_rate_set_layout"
+        style="@style/config_relativeLayout"
+        android:layout_width="match_parent">
+
+        <TextView
+            android:id="@+id/frame_rate_set_label"
+            style="@style/config_text"
+            android:text="@string/frame_rate" />
+
+        <TextView
+            android:id="@+id/frame_rate_set_text"
+            style="@style/config_text_image"
+            android:background="@null"
+            android:layout_toRightOf="@id/frame_rate_set_label"
+            android:drawableRight="@drawable/mm_submenu" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/bit_rate_set_layout"
+        style="@style/config_relativeLayout"
+        android:layout_width="match_parent">
+
+        <TextView
+            android:id="@+id/bit_rate_set_label"
+            style="@style/config_text"
+            android:text="@string/bit_stream" />
+
+        <TextView
+            android:id="@+id/bit_rate_set_text"
+            style="@style/config_text_image"
+            android:background="@null"
+            android:layout_toRightOf="@id/bit_rate_set_label"
+            android:drawableRight="@drawable/mm_submenu" />
+    </RelativeLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/blueGrey"
+        android:textSize="22sp"
+        android:layout_above="@+id/audio_encode_mode_set_layout"
+        android:text="@string/audio_encode"
+        android:textAlignment="center"
+        android:layout_marginTop="5dp" />
+
+    <RelativeLayout
+        android:id="@+id/audio_encode_mode_set_layout"
+        style="@style/config_relativeLayout"
+        android:layout_width="match_parent">
+
+        <TextView
+            android:id="@+id/audio_encode_mode_set_label"
+            style="@style/config_text"
+            android:text="@string/encode_mode" />
+
+        <TextView
+            android:id="@+id/audio_encode_mode_set_text"
+            style="@style/config_text_image"
+            android:background="@null"
+            android:layout_toRightOf="@id/audio_encode_mode_set_label"
+            android:drawableRight="@drawable/mm_submenu" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/audio_rate_set_layout"
+        style="@style/config_relativeLayout"
+        android:layout_width="match_parent">
+
+        <TextView
+            android:id="@+id/audio_rate_set_label"
+            style="@style/config_text"
+            android:text="@string/sample_rate" />
+
+        <TextView
+            android:id="@+id/audio_rate_set_text"
+            style="@style/config_text_image"
+            android:background="@null"
+            android:layout_toRightOf="@id/audio_rate_set_label"
+            android:drawableRight="@drawable/mm_submenu" />
+    </RelativeLayout>
+
+    <Button
+        android:textAllCaps="false"
+        android:text="@string/setting"
+        android:id="@+id/encode_set_btn"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="10dp"
+        android:gravity="center"/>
+</LinearLayout>
