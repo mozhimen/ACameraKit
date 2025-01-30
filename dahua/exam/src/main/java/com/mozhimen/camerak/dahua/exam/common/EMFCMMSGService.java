@@ -12,6 +12,7 @@ import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 import com.mozhimen.camerak.dahua.exam.R;
 import com.mozhimen.camerak.dahua.exam.activity.MainActivity;
+import com.mozhimen.kotlin.utilk.android.app.UtilKPendingIntentGet;
 
 
 /**
@@ -54,7 +55,7 @@ public class EMFCMMSGService extends FirebaseMessagingService {
                 Intent intent1 = new Intent(Intent.ACTION_MAIN);
                 intent1.addCategory(Intent.CATEGORY_LAUNCHER);
                 intent1.setClass(this, MainActivity.class);
-                PendingIntent pi = PendingIntent.getActivity(this, 0, intent1, 0);
+                PendingIntent pi = UtilKPendingIntentGet.getActivity(0, intent1, 0);
 
                 String message =  r.getString(R.string.channel) + "-" + channelNum + " "	+ r.getString(alarmTypeResId);
                 String title = deviceName + " " + r.getString(R.string.alarm_push_title) + " " +alarmTime;

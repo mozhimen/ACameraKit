@@ -23,7 +23,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <com.mozhimen.pidk.camera.dahua.exam.common.ClearEditText
+            <com.mozhimen.camerak.dahua.exam.common.ClearEditText
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:hint="@string/activity_iplogin_username"
@@ -51,7 +51,7 @@
             android:layout_height="match_parent"
             android:layout_weight="2">
 
-            <com.mozhimen.pidk.camera.dahua.exam.common.ClearEditText
+            <com.mozhimen.camerak.dahua.exam.common.ClearEditText
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:hint="@string/activity_iplogin_password"
@@ -62,7 +62,7 @@
                 android:background="@null"/>
         </com.google.android.material.textfield.TextInputLayout>
 
-        <com.mozhimen.pidk.camera.dahua.exam.common.EyeImageButton
+        <com.mozhimen.camerak.dahua.exam.common.EyeImageButton
             android:id="@+id/eye_button_passwd"
             android:layout_width="35dp"
             android:layout_height="45dp"

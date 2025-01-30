@@ -3,10 +3,10 @@
     <string name="msg_subscribed">Subscribe to new topic</string>
     <string name="msg_token_fmt" translatable="false">InstanceID Token: %s</string>
 
-    <string name="gcm_send_message">Token retrieved and sent to server! You can now use gcmsender to
+    <string name="gcm_send_message" translatable="false">Token retrieved and sent to server! You can now use gcmsender to
         send downstream messages to this app.</string>
-    <string name="registering_message">Generating InstanceID token...</string>
-    <string name="token_error_message">An error occurred while either fetching the InstanceID token,
+    <string name="registering_message" translatable="false">Generating InstanceID token...</string>
+    <string name="token_error_message" translatable="false">An error occurred while either fetching the InstanceID token,
         sending the fetched token to the server or subscribing to the PubSub topic. Please try
         running the sample again.</string>
 

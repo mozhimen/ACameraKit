@@ -29,6 +29,10 @@ include ':opengl'
 include ':opengl:test'
 include ':opengl:proxy'
 include ':opengl:proxy:test'
+include ':uvc'
+include ':uvc:test'
+include ':uvc:uvccamera'
+include ':uvc:basic'
 //ALibKit_Google
 include ':ALibKit_Google'
 project(':ALibKit_Google').projectDir = new File("D:\\WorkSpace\\GitHub\\ALibKit_Google")
@@ -100,4 +104,22 @@ include ':ACacheKit'
 project(':ACacheKit').projectDir = new File("D:\\WorkSpace\\GitHub\\ACacheKit")
 include ':ACacheKit:sharedpreferences'
 include ':ACacheKit:basic'
-
+//ARxKit
+include ":ARxKit"
+project(':ARxKit').projectDir = new File("D:\\WorkSpace\\GitHub\\ARxKit")
+include ':ARxKit:rxjava2'
+include ':ARxKit:rxpermissions'
+//APermissionKit
+include ":APermissionKit"
+project(':APermissionKit').projectDir = new File("D:\\WorkSpace\\GitHub\\APermissionKit")
+include ':APermissionKit:permissionk'
+include ':APermissionKit:rxpermissions'
+//APermissionKit_XXPermissions
+include ":APermissionKit_XXPermissions"
+project(':APermissionKit_XXPermissions').projectDir = new File("D:\\WorkSpace\\GitHub\\APermissionKit_XXPermissions")
+include ':APermissionKit_XXPermissions:permissionk_xxpermissions'
+include ':APermissionKit_XXPermissions:library'
+//AOpenGLKit
+include ":AOpenGLKit"
+project(':AOpenGLKit').projectDir = new File("D:\\WorkSpace\\GitHub\\AOpenGLKit")
+include ':AOpenGLKit:basick'

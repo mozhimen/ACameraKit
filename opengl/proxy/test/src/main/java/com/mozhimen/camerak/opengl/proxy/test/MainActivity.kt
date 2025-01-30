@@ -1,4 +1,4 @@
-package com.mozhimen.camerakgltest
+package com.mozhimen.camerak.opengl.proxy.test
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle

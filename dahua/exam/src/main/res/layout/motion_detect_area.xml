@@ -73,12 +73,12 @@
         android:layout_above="@+id/motion_detect_area_layout"
         android:gravity="center">
 
-        <com.mozhimen.pidk.camera.dahua.exam.activity.MotionDetectConfig.view.CustomScrollView
+        <com.mozhimen.camerak.dahua.exam.activity.MotionDetectConfig.view.CustomScrollView
             android:id="@+id/motion_vScroll"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:scrollbars="none">
-            <com.mozhimen.pidk.camera.dahua.exam.activity.MotionDetectConfig.view.CustomHScrollView
+            <com.mozhimen.camerak.dahua.exam.activity.MotionDetectConfig.view.CustomHScrollView
                 android:id="@+id/motion_hScroll"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
@@ -89,14 +89,14 @@
                     android:layout_width="fill_parent"
                     android:layout_height="fill_parent"
                     android:orientation="vertical" >
-                    <com.mozhimen.pidk.camera.dahua.exam.activity.MotionDetectConfig.view.MotionAreaView
+                    <com.mozhimen.camerak.dahua.exam.activity.MotionDetectConfig.view.MotionAreaView
                         android:id="@+id/motion_areaView"
                         android:layout_width="fill_parent"
                         android:layout_height="fill_parent">
-                    </com.mozhimen.pidk.camera.dahua.exam.activity.MotionDetectConfig.view.MotionAreaView>
+                    </com.mozhimen.camerak.dahua.exam.activity.MotionDetectConfig.view.MotionAreaView>
                 </LinearLayout>
-            </com.mozhimen.pidk.camera.dahua.exam.activity.MotionDetectConfig.view.CustomHScrollView>
-        </com.mozhimen.pidk.camera.dahua.exam.activity.MotionDetectConfig.view.CustomScrollView>
+            </com.mozhimen.camerak.dahua.exam.activity.MotionDetectConfig.view.CustomHScrollView>
+        </com.mozhimen.camerak.dahua.exam.activity.MotionDetectConfig.view.CustomScrollView>
     </RelativeLayout>
 
     <LinearLayout

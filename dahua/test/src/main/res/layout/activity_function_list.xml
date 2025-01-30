@@ -7,7 +7,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context="com.mozhimen.camerak_dahua_test.com.mozhimen.pidk.camera.dahua.test.FunctionListActivity">
+        tools:context="com.mozhimen.camerak_dahua_test.com.mozhimen.camerak.dahua.test.FunctionListActivity">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_func"

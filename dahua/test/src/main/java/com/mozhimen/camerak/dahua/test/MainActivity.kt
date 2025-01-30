@@ -6,8 +6,8 @@ import com.mozhimen.bindk.bases.viewdatabinding.activity.BaseActivityVDB
 import com.mozhimen.camerak.dahua.CameraKDahua
 import com.mozhimen.camerak.dahua.test.databinding.ActivityMainBinding
 import com.mozhimen.kotlin.utilk.android.content.startContext
-import com.mozhimen.manifestk.permission.ManifestKPermission
-import com.mozhimen.manifestk.permission.annors.APermissionCheck
+import com.mozhimen.permissionk.PermissionK
+import com.mozhimen.permissionk.annors.APermissionCheck
 
 @APermissionCheck(
     Manifest.permission.WRITE_EXTERNAL_STORAGE,
@@ -18,7 +18,7 @@ import com.mozhimen.manifestk.permission.annors.APermissionCheck
 class MainActivity : BaseActivityVDB<ActivityMainBinding>() {
 
     override fun initData(savedInstanceState: Bundle?) {
-        ManifestKPermission.requestPermissions(this) {
+        PermissionK.requestPermissions(this) {
             super.initData(savedInstanceState)
         }
     }

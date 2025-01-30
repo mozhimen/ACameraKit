@@ -1,0 +1,84 @@
+apply plugin: 'com.android.library'
+apply plugin: 'maven-publish'
+
+//afterEvaluate {
+//    publishing {
+//        publications {
+//            release(MavenPublication) {
+//                from components.release
+//                groupId = 'com.mozhimen.camerak_uvc'
+//                artifactId = 'camerak_uvc'
+//                version = '1.0.0'
+//            }
+//        }
+//    }
+//}
+
+android {
+    compileSdk 34
+	namespace "com.mozhimen.camerak.uvc"
+
+    defaultConfig {
+        minSdk 18
+        targetSdk 33
+        externalNativeBuild {
+            cmake {
+                cppFlags '-std=c++11'
+            }
+        }
+        ndk {
+            abiFilters 'armeabi-v7a', 'arm64-v8a'
+        }
+        ndkVersion "22.1.7171670"
+        consumerProguardFiles "consumer-rules.pro"
+    }
+
+    externalNativeBuild {
+        cmake {
+            path 'src/main/cpp/CMakeLists.txt'
+        }
+    }
+
+    buildTypes {
+        debug {
+            minifyEnabled false
+//            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'consumer-rules.pro'
+        }
+        release {
+            minifyEnabled false
+//            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'consumer-rules.pro'
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    libraryVariants.all { variant ->
+        if (variant.buildType.name == "release") {
+            variant.outputs.all {
+                //${variant.flavorName}
+                outputFileName = "${project.name}-v${defaultConfig.versionName}-${variant.buildType.name}.aar"
+            }
+        }
+//        if (variant.buildType.name == "release") {
+//            variant.getPackageLibraryProvider().get().destinationDir = new File(project.rootDir.absolutePath + "/repositories")
+//        }
+    }
+}
+
+dependencies {
+    api project(':uvc:basic')
+    implementation project(':ALibKit_Jetpack:annotation')
+    implementation project(':ASwiftKit:basick')
+
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+}
+
+//repositories {
+//    mavenCentral()
+//}
+

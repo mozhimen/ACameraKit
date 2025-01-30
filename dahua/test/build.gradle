@@ -47,6 +47,7 @@ dependencies {
     implementation project(':AXmlKit:vhk')
     implementation project(':AXmlKit:btnk_pwd')
     implementation project(':ACacheKit:sharedpreferences')
+    implementation project(':APermissionKit:permissionk')
     implementation project(':dahua:core')
 
     testImplementation 'junit:junit:4.13.2'

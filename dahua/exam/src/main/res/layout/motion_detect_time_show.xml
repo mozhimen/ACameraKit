@@ -18,7 +18,7 @@
         </androidx.appcompat.widget.Toolbar>
     </com.google.android.material.appbar.AppBarLayout>
 
-    <com.mozhimen.pidk.camera.dahua.exam.activity.MotionDetectConfig.view.MotionTimeShowView
+    <com.mozhimen.camerak.dahua.exam.activity.MotionDetectConfig.view.MotionTimeShowView
         android:id="@+id/motion_detect_time_show_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
