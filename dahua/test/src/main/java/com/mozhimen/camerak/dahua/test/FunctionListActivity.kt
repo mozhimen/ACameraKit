@@ -2,13 +2,13 @@ package com.mozhimen.camerak.dahua.test
 
 import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.mozhimen.bindk.bases.viewdatabinding.activity.BaseActivityVDB
+import com.mozhimen.uik.databinding.bases.viewdatabinding.activity.BaseActivityVDB
 import com.mozhimen.camerak.dahua.test.databinding.ActivityFunctionListBinding
 import com.mozhimen.camerak.dahua.test.databinding.ItemFuncBinding
 import com.mozhimen.kotlin.utilk.android.content.startContext
 import com.mozhimen.kotlin.utilk.wrapper.UtilKRes
 import com.mozhimen.xmlk.recyclerk.quick.RecyclerKQuickAdapterVDB
-import com.mozhimen.xmlk.vhk.VHKRecyclerVDB
+import com.mozhimen.xmlk.vhk.VHKLifecycle2VDB
 
 class FunctionListActivity : BaseActivityVDB<ActivityFunctionListBinding>() {
     private val _funcList = mutableListOf(
@@ -23,7 +23,7 @@ class FunctionListActivity : BaseActivityVDB<ActivityFunctionListBinding>() {
             _funcList,
             R.layout.item_func,
             BR.item_func
-        ) { holder: VHKRecyclerVDB<ItemFuncBinding>, item: FuncBean, position: Int, currentSelectPos: Int ->
+        ) { holder: VHKLifecycle2VDB<ItemFuncBinding>, item: FuncBean, position: Int, currentSelectPos: Int ->
             holder.vdb.btnFunc.setOnClickListener {
                 item.func.invoke()
             }

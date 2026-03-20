@@ -57,9 +57,10 @@ include ':ALibKit_Squareup:moshi'
 //ASwiftKit
 include ':ASwiftKit'
 project(':ASwiftKit').projectDir = new File("D:\\WorkSpace\\GitHub\\ASwiftKit")
-include ':ASwiftKit:bindk'
+include ':ASwiftKit:uik:databinding'
 include ':ASwiftKit:basick'
 include ':ASwiftKit:xmlk'
+include ':ASwiftKit:uik'
 //AManifestKit_XXPermissions
 include ':AManifestKit_XXPermissions'
 project(':AManifestKit_XXPermissions').projectDir = new File("D:\\WorkSpace\\GitHub\\AManifestKit_XXPermissions")
@@ -79,9 +80,10 @@ include ':ALogKit:basic'
 //AXmlKit
 include ':AXmlKit'
 project(':AXmlKit').projectDir = new File("D:\\WorkSpace\\GitHub\\AXmlKit")
-include ':AXmlKit:recyclerk'
+include ':AXmlKit:recyclerk:quick'
 include ':AXmlKit:vhk'
 include ':AXmlKit:basic'
+include ':AXmlKit:btnk:pwd'
 //AOpenGLKit
 include ':AOpenGLKit'
 project(':AOpenGLKit').projectDir = new File("D:\\WorkSpace\\GitHub\\AOpenGLKit")
@@ -89,7 +91,7 @@ include ':AOpenGLKit:basic'
 //ASerialKit
 include ':ASerialKit'
 project(':ASerialKit').projectDir = new File("D:\\WorkSpace\\GitHub\\ASerialKit")
-include ':ASerialKit:moshi'
+include ':ASerialKit:json:moshi'
 //KUtilKit
 include ':KUtilKit'
 project(':KUtilKit').projectDir = new File("D:\\WorkSpace\\GitHub\\KUtilKit")
@@ -108,12 +110,12 @@ include ':ACacheKit:basic'
 include ":ARxKit"
 project(':ARxKit').projectDir = new File("D:\\WorkSpace\\GitHub\\ARxKit")
 include ':ARxKit:rxjava2'
-include ':ARxKit:rxpermissions'
+include ':ARxKit:rxpermissions2'
 //APermissionKit
 include ":APermissionKit"
 project(':APermissionKit').projectDir = new File("D:\\WorkSpace\\GitHub\\APermissionKit")
 include ':APermissionKit:permissionk'
-include ':APermissionKit:rxpermissions'
+include ':APermissionKit:rxpermissions2'
 //APermissionKit_XXPermissions
 include ":APermissionKit_XXPermissions"
 project(':APermissionKit_XXPermissions').projectDir = new File("D:\\WorkSpace\\GitHub\\APermissionKit_XXPermissions")

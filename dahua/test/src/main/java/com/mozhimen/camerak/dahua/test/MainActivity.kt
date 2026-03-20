@@ -2,12 +2,12 @@ package com.mozhimen.camerak.dahua.test
 
 import android.Manifest
 import android.os.Bundle
-import com.mozhimen.bindk.bases.viewdatabinding.activity.BaseActivityVDB
 import com.mozhimen.camerak.dahua.CameraKDahua
 import com.mozhimen.camerak.dahua.test.databinding.ActivityMainBinding
 import com.mozhimen.kotlin.utilk.android.content.startContext
 import com.mozhimen.permissionk.PermissionK
 import com.mozhimen.permissionk.annors.APermissionCheck
+import com.mozhimen.uik.databinding.bases.viewdatabinding.activity.BaseActivityVDB
 
 @APermissionCheck(
     Manifest.permission.WRITE_EXTERNAL_STORAGE,

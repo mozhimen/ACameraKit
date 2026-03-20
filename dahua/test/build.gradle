@@ -41,11 +41,11 @@ android {
 }
 
 dependencies {
-    implementation project(':ASwiftKit:bindk')
+    implementation project(':ASwiftKit:uik:databinding')
     implementation project(':ASwiftKit:xmlk')
-    implementation project(':AXmlKit:recyclerk')
+    implementation project(':AXmlKit:recyclerk:quick')
     implementation project(':AXmlKit:vhk')
-    implementation project(':AXmlKit:btnk_pwd')
+    implementation project(':AXmlKit:btnk:pwd')
     implementation project(':ACacheKit:sharedpreferences')
     implementation project(':APermissionKit:permissionk')
     implementation project(':dahua:core')

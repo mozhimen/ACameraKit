@@ -13,6 +13,7 @@ import android.util.Log
 import android.view.Surface
 import androidx.appcompat.app.AppCompatActivity
 import com.mozhimen.kotlin.utilk.android.content.UtilKContext
+import com.mozhimen.kotlin.utilk.android.content.UtilKContextGet
 import com.mozhimen.kotlin.utilk.commons.IUtilK
 
 class MainActivity : AppCompatActivity(), IUtilK {
@@ -74,7 +75,7 @@ class MainActivity : AppCompatActivity(), IUtilK {
 
     @SuppressLint("MissingPermission")
     private fun startCamera() {
-        val cameraManager = UtilKContext.getCameraManager(this)
+        val cameraManager = UtilKContextGet.getSystemService_CAMERA(this)
         val cameraId = cameraManager.cameraIdList[0]
         cameraManager.openCamera(cameraId, object : CameraDevice.StateCallback() {
             override fun onOpened(camera: CameraDevice) {

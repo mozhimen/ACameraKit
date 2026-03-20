@@ -61,7 +61,7 @@ dependencies {
     implementation project(':ASwiftKit:basick')
 
     // 获取权限
-    implementation project(':APermissionKit:rxpermissions')
+    implementation project(':APermissionKit:rxpermissions2')
 
     //rx
     implementation project(':ARxKit:rxjava2')

@@ -17,9 +17,6 @@ import com.mozhimen.camerak.camerax.commons.ICameraXKFrameListener
 import com.mozhimen.camerak.camerax.mos.CameraKXConfig
 import com.mozhimen.camerak.camerax.utils.imageProxyRgba88882bitmapRgba8888
 import com.mozhimen.camerak.camerax.utils.imageProxyYuv4208882bitmapJpeg
-import com.mozhimen.manifestk.xxpermissions.XXPermissionsCheckUtil
-import com.mozhimen.manifestk.xxpermissions.XXPermissionsRequestUtil
-import com.mozhimen.bindk.bases.viewdatabinding.activity.BaseActivityVDB
 import com.mozhimen.kotlin.utilk.android.graphics.bitmapAny2file
 import com.mozhimen.kotlin.utilk.android.graphics.getByteCount_ofM
 import com.mozhimen.kotlin.utilk.android.util.UtilKLogWrapper
@@ -27,8 +24,11 @@ import com.mozhimen.kotlin.utilk.java.io.getFileSize_ofAvaioflable
 import com.mozhimen.kotlin.utilk.kotlin.UtilKStrFile
 import com.mozhimen.kotlin.utilk.kotlin.getStrFolderPath
 import com.mozhimen.kotlin.utilk.kotlin.longFileSize2strFileSize
+import com.mozhimen.permissionk.xxpermissions.XXPermissionsCheckUtil
+import com.mozhimen.permissionk.xxpermissions.XXPermissionsNavHostUtil
+import com.mozhimen.permissionk.xxpermissions.XXPermissionsRequestUtil
+import com.mozhimen.uik.databinding.bases.viewdatabinding.activity.BaseActivityVDB
 import com.mozhimen.libk.jetpack.camera.cons.CImageCapture
-
 
 @OptIn(OPermission_CAMERA::class)
 class CameraKXActivity : BaseActivityVDB<ActivityCameraxkBinding>() {
@@ -56,11 +56,11 @@ class CameraKXActivity : BaseActivityVDB<ActivityCameraxkBinding>() {
             )
 //            setCameraXFrameListener(_cameraKXFrameListener)
             setCameraXCaptureListener(_cameraKXCaptureListener)
-            if (!XXPermissionsCheckUtil.hasCameraPermission(this@CameraKXActivity)) {
-                XXPermissionsRequestUtil.requestCameraPermission(this@CameraKXActivity, onGranted = {
+            if (!XXPermissionsCheckUtil.hasPermission_CAMERA(this@CameraKXActivity)) {
+                XXPermissionsRequestUtil.requestPermission_CAMERA(this@CameraKXActivity, onGranted = {
                     this.restartCameraKX()
                 }, onDenied = {
-                    UtilKActivityStart.startSettingApplicationDetailsSettings(this@CameraKXActivity)
+                    XXPermissionsNavHostUtil.startPermission_DEFAULT(this@CameraKXActivity)
                 })
             }
         }

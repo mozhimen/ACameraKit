@@ -6,12 +6,19 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.view.TextureView
-import com.mozhimen.bindk.bases.viewdatabinding.activity.BaseActivityVDB
 import com.mozhimen.kotlin.lintk.optins.permission.OPermission_CAMERA
-import com.mozhimen.camerak.*
-import com.mozhimen.camerak_uvc.Direction
 import com.mozhimen.camerak.camerax.test.databinding.ActivityCamerakBinding
-import com.mozhimen.manifestk.xxpermissions.XXPermissionsRequestUtil
+import com.mozhimen.camerak.uvc.Direction
+import com.mozhimen.camerak.uvc.basic.CallBackEvents
+import com.mozhimen.camerak.uvc.basic.CameraApiType
+import com.mozhimen.camerak.uvc.basic.CameraFacing
+import com.mozhimen.camerak.uvc.basic.CameraFocus
+import com.mozhimen.camerak.uvc.basic.CameraManager
+import com.mozhimen.camerak.uvc.basic.CameraSize
+import com.mozhimen.camerak.uvc.basic.FacingType
+import com.mozhimen.camerak.uvc.basic.IAttributes
+import com.mozhimen.permissionk.xxpermissions.XXPermissionsRequestUtil
+import com.mozhimen.uik.databinding.bases.viewdatabinding.activity.BaseActivityVDB
 
 /**
  * @ClassName CameraKActivity
@@ -24,7 +31,7 @@ class CameraKUVCActivity : BaseActivityVDB<ActivityCamerakBinding>() {
     @OptIn(OPermission_CAMERA::class)
     @SuppressLint("MissingPermission")
     override fun initData(savedInstanceState: Bundle?) {
-        XXPermissionsRequestUtil.requestCameraPermission(this, {
+        XXPermissionsRequestUtil.requestPermission_CAMERA(this, {
             super.initData(savedInstanceState)
         }, {})
     }

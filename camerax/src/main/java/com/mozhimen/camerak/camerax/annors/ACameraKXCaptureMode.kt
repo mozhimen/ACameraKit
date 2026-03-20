@@ -2,7 +2,6 @@ package com.mozhimen.camerak.camerax.annors
 
 import android.annotation.SuppressLint
 import androidx.annotation.IntDef
-import androidx.camera.core.ImageCapture
 import com.mozhimen.libk.jetpack.camera.cons.CImageCapture
 
 /**
